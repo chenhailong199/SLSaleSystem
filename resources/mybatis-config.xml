@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- 1,加载外部配置文件 -->
+	<!-- 2.配置全局运行行为 -->
+	<settings>
+		 <!-- 关闭延迟加载 -->
+   	   <setting name="lazyLoadingEnabled" value="false"/>
+	</settings>
+    <!-- 3.配置别名 -->
+   <typeAliases>
+       <!-- 通过配置包名的形式配置别名 -->
+       <package name="com.sl.pojo"/>
+   </typeAliases>
+   <!-- 4.配置开发环境 -->
+	
+   <!-- 5.配置映射文件 -->
+	
+	
+</configuration>  
