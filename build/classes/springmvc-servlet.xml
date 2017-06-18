@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+        
+        <!-- 开启注解驱动,通过启动注解，能将普通类变成控制器类-->
+      	<mvc:annotation-driven/>
+      	<!-- 扫描包下所有类 -->
+        <context:component-scan base-package="com.sl"/>
+      	
+       <!-- 配置视图解析器 -->
+       <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+           <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+           <!-- 配置返回的视图在哪个目录下 -->
+           <property name="prefix" value="/pages/"/>
+           <!-- 配置配置文件类型 -->
+           <property name="suffix" value=".jsp"/>
+       </bean>
+       
+       <!-- 静态资源文件访问,css,js.... 需要映射URL路径-->
+       <mvc:resources location="/statics/" mapping="/statics/**" />
+       
+       <!-- 配置文件上传  MultipartResolver-->
+	   <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+			<property name="maxUploadSize" value="5000000"/>
+			<property name="defaultEncoding" value="UTF-8"/>
+	   </bean>
+	   
+	   <!-- 配置interce... -->
+       
+       <!-- 配置全局异常  SimpleMappingExceptionResolver -->
+       <!--   <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+       		<property name="exceptionMappings">
+       			<props>
+       				<prop key="com.spring.pojo.UserException">error</prop>
+       			</props>
+       		</property>
+       </bean>
+       --> 
+                        
+       <!-- springmvc框架环境搭建
+          1.新建工程
+          2.导入jar包
+          3.在web.xml写前端控制器
+          4.新建springmvc配置文件，文件名字要与前端控制器里面设置的一样
+          5.写控制器类
+          6.在springmvc配置文件中写请求映射和视图解析 -->
+</beans>

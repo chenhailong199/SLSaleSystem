@@ -5,7 +5,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
+import com.sl.common.RedisAPI;
 import com.sl.common.SLConstants;
 import com.sl.pojo.Authority;
 import com.sl.pojo.Function;
@@ -37,6 +37,8 @@ public class UserController extends BaseController{
 	private UserService userService;
 	@Resource
 	private FunctionService functionService;
+	/*@Resource
+	private RedisAPI redisAPI;*/
 	/**
 	 * 获得登录页面
 	 * @return
@@ -108,7 +110,39 @@ public class UserController extends BaseController{
 		if (null != currentUser){
 			Map<String, Object> model = new HashMap<String, Object>();
 			model.put("currentUser", currentUser);
-			mList = getFunctionByCurrentUser(currentUser.getRoleId());
+			/**
+			 * 如果redis里有数据,直接从redis里取
+			 * 如果redis里没有数据,从数据库取,再保存到redis
+			 * key:menuList+roleId -- eg:"menuList2"
+			 * value:mList
+			 * redis -- start redis未安装
+			 * */
+	/*		if (!redisAPI.exists("menuList"+currentUser.getRoleId())){
+				//redis没有数据,从数据库取
+				mList = getFunctionByCurrentUser(currentUser.getRoleId());
+				if (null != mList){
+					String json = JSON.toJSONString(mList);
+					System.out.println("from mysql" + json);
+					model.put("mList", json);
+					//将mList存入redis
+					redisAPI.set("menuList"+currentUser.getRoleId(), json);
+				}
+			} else {
+				//redis 里有数据,直接从redis取
+				String redisMenuList = redisAPI.get("menuList"+currentUser.getRoleId());
+				System.out.println("from redis" + redisMenuList);
+				if (null != redisMenuList && !"".equals(redisMenuList)){
+					model.put("mList", redisMenuList);
+				} else {
+					return  new ModelAndView ("redirect:/");
+				}
+			}	
+			session.setAttribute(SLConstants.SESSION_BASE_MODEL, model);
+			return new ModelAndView("main",model);*/
+			/**
+			 * redis -- end
+			 * */
+		   mList = getFunctionByCurrentUser(currentUser.getRoleId());
 			if (null != mList){
 				String json = JSON.toJSONString(mList);
 				System.out.println(json);
@@ -152,6 +186,52 @@ public class UserController extends BaseController{
 		}
 		return menuList;
 	}
+	
+	/**
+	 * 注销功能
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value="/logOut.html")
+	public String logout(HttpSession session){
+		session.removeAttribute(SLConstants.SESSION_USER);
+		session.invalidate();
+		this.setCurrentUser(null);
+		return "index";
+	}
+	/**
+	 * 修改密码
+	 * @param userJson (新密码,旧密码)
+	 * @return
+	 */
+	@RequestMapping(value="/background/modifypwd.html")
+	public String modifypwd(@RequestParam String newpwd, @RequestParam String oldpwd ){
+		User currentUser = this.getCurrentUser();
+		if (newpwd == null || "".equals(newpwd)){
+			return "nodata";
+		} else {
+			User user = new User();
+			user.setId(currentUser.getId());
+			user.setLoginCode(currentUser.getLoginCode());
+			user.setPassword(oldpwd);
+			try {
+				if (userService.getLoginUser(user) != null){
+					//旧密码正确
+					user.setPassword(newpwd);
+					userService.updateUser(user);
+				} else {//旧密码不正确
+					return "oldpwdwrong";
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return "failed";
+			}
+			return "success";
+		}
+	}
+	
+	
 	
 	
 	@RequestMapping(value="/getRegister.html")

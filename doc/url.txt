@@ -1,0 +1,9 @@
+后台管理
+	用户管理 /background/userlist.html
+	角色管理 /background/rolelist.html
+	权限管理 /background/authoritymanage.html
+	商品管理 /background/goodsmanage.html
+	商品套餐管理 /background/goodspacklist.html
+	数据字典 /background/datadictionary.html
+	
+	

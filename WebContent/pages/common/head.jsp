@@ -55,47 +55,46 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html"> <img alt="Charisma Logo" src="/SL/statics/bootstrap/img/logo20.png" class="hidden-xs"/>
+            <a class="navbar-brand" href="/main.html"> <img alt="Charisma Logo" src="/SL/statics/bootstrap/img/logo20.png" class="hidden-xs"/>
                 <span>SL 会员商城</span></a>
-
-            <!-- user dropdown starts -->
-            <div class="btn-group pull-right">
-                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                    <i class="glyphicon glyphicon-user"></i><span class="hidden-sm hidden-xs"> admin</span>
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Profile</a></li>
-                    <li class="divider"></li>
-                    <li><a href="login.html">Logout</a></li>
-                </ul>
-            </div>
-            <!-- user dropdown ends -->
-
-            <!-- theme selector starts -->
-            <div class="btn-group pull-right theme-container animated tada">
-                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                    <i class="glyphicon glyphicon-tint"></i><span
-                        class="hidden-sm hidden-xs"> Change Theme / Skin</span>
-                    <span class="caret"></span>
-                </button>
-              
-            </div>
-            <!-- theme selector ends -->
-
-            <ul class="collapse navbar-collapse nav navbar-nav top-menu">
-                <li><a href="#"><i class="glyphicon glyphicon-globe"></i> Visit Site</a></li>
-                <li class="dropdown">
-                    <a href="#" data-toggle="dropdown"><i class="glyphicon glyphicon-star"></i> Dropdown <span
-                            class="caret"></span></a>
-                </li>
-                <li>
-                    <form class="navbar-search pull-left">
-                        <input placeholder="Search" class="search-query form-control col-md-10" name="query"
-                               type="text">
-                    </form>
-                </li>
-            </ul>
+			<div class="pull-right">
+				<ul class="collapse navbar-collapse nav navbar-nav top-menu">
+					<li><a href="#"><i class=" glyphicon glyphicon-user"></i> 你好,${currentUser.userName}</a></li>
+					<li><a href="#"> 角色:</a></li>
+					<li><a href="<%=request.getContextPath() %>/main.html"> 首页</a></li>
+					<li><a href="#"> 购物车</a></li>
+					<li><a href="#"> 留言板</a></li>
+					<li><a href="javascript:void();" class="btn-setting modifypwd"> 修改密码</a></li>
+					<li><a href="<%=request.getContextPath() %>/logOut.html"> 注销</a></li>
+				</ul>
+			</div>
+			<!-- 弹框修改密码 开始 -->
+			<!-- <a href="#" class="btn btn-info clickbtn">Click for dialog</a> -->
+			<div class="modal hide fade" id="myModal">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">x</button>
+					<h3>修改密码</h3>
+				</div>
+				<div class="modal-body">
+					<p>
+						<label>请输入原密码:</label>
+							<input id="oldpassword" type="password">
+							<span style="color:red;font-weight:bold;">*</span>
+						<label>请输入新密码:</label>
+							<input id="newpassword" type="password">
+							<span style="color:red;font-weight:bold;">*新密码必须6位以上</span>
+						<label>再次输入新密码:</label>
+							<input id="aginpassword" type="password">
+							<span style="color:red;font-weight:bold;">*</span>		 
+					</p>
+					<p id="modifypwdtip"></p>
+				</div>
+				<div class="modal-footer">
+					<a href="#" class="btn" data-dismiss="modal">取消</a>
+					<a href="#" id="modifysavepwd" class="btn btn-primary" >修改</a>
+				</div>
+			</div>
+			<!-- 弹框修改密码 结束 -->
 
         </div>
     </div>

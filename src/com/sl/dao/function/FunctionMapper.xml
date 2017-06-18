@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.sl.dao.function.FunctionMapper">
+ 	<resultMap type="Function" id="functionMap">
+ 		<id property="id" column="id" javaType="java.lang.Integer"/>
+ 		<result property="functionCode" column="functionCode" javaType="java.lang.String"/>
+ 		<result property="functionName" column="functionName" javaType="java.lang.String"/>
+        <result property="functionUrl" column="functionUrl" javaType="java.lang.String"/>
+        <result property="parentId" column="parentId" javaType="java.lang.Integer"/>
+        <result property="createdTime" column="createdTime" javaType="java.sql.Timestamp"/>
+        <result property="modifiedTime" column="modifiedTime" javaType="java.sql.Timestamp"/>
+ 	</resultMap>
+ 	
+ 	<select id="listMainFunction" resultMap="functionMap" parameterType="authority">
+ 		SELECT * FROM sl_function WHERE parentId = 0  AND id IN 
+ 			( SELECT functionId FROM sl_authority WHERE roleId = #{roleId} )
+ 	</select>
+ 	
+ 	<select id="listSubFunction" resultMap="functionMap" parameterType="function">
+ 		SELECT * FROM sl_function WHERE parentId = #{id}  AND id IN 
+ 			( SELECT functionId FROM sl_authority WHERE roleId = #{roleId} )
+ 	</select>
+ 	
+</mapper> 	
