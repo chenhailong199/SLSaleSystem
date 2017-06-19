@@ -1,5 +1,7 @@
 package com.sl.service.user;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -34,6 +36,18 @@ public class UserServiceImpl implements UserService{
 	public int updateUser(User user) throws Exception {
 		// TODO Auto-generated method stub
 		return userMapper.updateUser(user);
+	}
+
+	@Override
+	public int totalCount(User user) throws Exception {
+		// TODO Auto-generated method stub
+		return userMapper.totalCount(user);
+	}
+
+	@Override
+	public List<User> listUser(User user) throws Exception {
+		// TODO Auto-generated method stub
+		return userMapper.listUser(user);
 	}
 
 }

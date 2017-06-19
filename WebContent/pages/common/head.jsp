@@ -3,7 +3,9 @@
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>    
+%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="f" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -60,7 +62,7 @@
 			<div class="pull-right">
 				<ul class="collapse navbar-collapse nav navbar-nav top-menu">
 					<li><a href="#"><i class=" glyphicon glyphicon-user"></i> 你好,${currentUser.userName}</a></li>
-					<li><a href="#"> 角色:</a></li>
+					<li><a href="#"> 角色:${currentUser.role.roleName}</a></li>
 					<li><a href="<%=request.getContextPath() %>/main.html"> 首页</a></li>
 					<li><a href="#"> 购物车</a></li>
 					<li><a href="#"> 留言板</a></li>
@@ -110,6 +112,7 @@
                     <ul class="nav nav-pills nav-stacked main-menu" id="menus">
 							<!-- 功能菜单栏 -->          
                     </ul>
+                  <li><a href="<%=request.getContextPath() %>/background/userlist.html">用户管理</a></li>
                 </div>
             </div>
         </div>

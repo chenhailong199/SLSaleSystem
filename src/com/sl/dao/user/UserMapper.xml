@@ -12,15 +12,22 @@
         <result property="roleId" column="roleId" javaType="java.lang.Integer"/>
         <result property="userTypeId" column="userTypeId" javaType="java.lang.Integer"/>
         <result property="status" column="status" javaType="java.lang.Integer"/>
+        <result property="referCode" column="referCode" javaType="java.lang.String"/>
         <result property="lastLoginTime" column="lastLoginTime" javaType="java.sql.Timestamp"/>
  		<result property="createdBy" column="createdBy" javaType="java.lang.String"/>
  		<result property="createdTime" column="createdTime" javaType="java.sql.Timestamp"/>
  		<result property="modifiedBy" column="modifiedBy" javaType="java.lang.String"/>
  		<result property="modifiedTime" column="modifiedTime" javaType="java.sql.Timestamp"/>
+		<!-- 配置一对一关联查询,association标签 -->
+ 		<association property="role" javaType="Role">
+ 			<id property="id" column="id" javaType="java.lang.Integer"/>
+ 			<result property="roleName" column="roleName" javaType="java.lang.String"/>
+ 			<result property="createdTime" column="createdTime" javaType="java.sql.Timestamp"/>
+ 		</association>	 	
  	</resultMap>
  			
  	<select id="getLoginUser" parameterType="User" resultMap="userMap">
- 		select * from sl_user 
+ 		select u.*,r.roleName from sl_user u LEFT JOIN sl_role r ON u.roleId = r.id
  			where loginCode = #{loginCode} and password = #{password}
  	</select>
  	
@@ -29,7 +36,29 @@
  			<trim prefix="where" prefixOverrides="and | or">
  				<if test="loginCode != null">loginCode = #{loginCode}</if>
  			</trim>
- 			
+ 	</select>
+ 	
+ 	<select id="totalCount" resultType="int" parameterType="User">
+ 		select count(*) from sl_user
+ 		<trim prefix="where" prefixOverrides="and | or">
+ 			<if test="loginCode != null">loginCode like CONCAT('%',#{loginCode},'%')</if>
+ 			<if test="userName != null">and userName like CONCAT('%',#{userName},'%')</if>
+ 			<if test="referCode != null">and referCode like CONCAT('%',#{referCode},'%')</if>
+ 			<if test="status != null">and status = #{status}</if>
+ 			<if test="roleId != null">and roleId = #{roleId}</if>
+ 		</trim>
+ 	</select>
+ 	
+ 	<select id="listUser" parameterType="User" resultMap="userMap">
+ 		SELECT u.* ,r.roleName FROM sl_user u LEFT JOIN sl_role r ON u.roleId = r.id
+ 		<trim prefix="where" prefixOverrides="and | or">
+ 			<if test="loginCode != null">loginCode like CONCAT('%',#{loginCode},'%')</if>
+ 			<if test="userName != null">and userName like CONCAT('%',#{userName},'%')</if>
+ 			<if test="referCode != null">and referCode like CONCAT('%',#{referCode},'%')</if>
+ 			<if test="status != null">and status = #{status}</if>
+ 			<if test="roleId != null">and roleId = #{roleId}</if>
+ 		</trim>
+ 		ORDER BY #{id} DESC LIMIT #{pageNo},#{pageSize}
  	</select>
  	
  	<insert id="saveUser" parameterType="User" > 

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 import com.sl.pojo.Base;
+import com.sl.pojo.role.Role;
 
 /**
  * 用户类
@@ -18,6 +19,7 @@ public class User extends Base implements Serializable{
 	private String payPwd;
 	private String userName;
 	private Integer status;
+	private String referCode; //推荐人
 	private Timestamp lastLoginTime;
 	private Integer roleId;
 	private Integer userTypeId;
@@ -25,7 +27,7 @@ public class User extends Base implements Serializable{
 	private Timestamp createdTime;
 	private String modifiedBy;
 	private Timestamp modifiedTime;
-	
+	private Role role;
 	
 	public User() {
 	}
@@ -119,6 +121,22 @@ public class User extends Base implements Serializable{
 
 	public void setUserTypeId(Integer userTypeId) {
 		this.userTypeId = userTypeId;
+	}
+
+	public String getReferCode() {
+		return referCode;
+	}
+
+	public void setReferCode(String referCode) {
+		this.referCode = referCode;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
 	}
 	
 }

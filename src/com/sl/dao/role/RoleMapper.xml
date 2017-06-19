@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.sl.dao.role.RoleMapper">
+ 	<resultMap type="Role" id="roleMap">
+ 		<id property="id" column="id" javaType="java.lang.Integer"/>
+ 		<result property="roleName" column="roleName" javaType="java.lang.String"/>
+ 		<result property="createdTime" column="createdTime" javaType="java.sql.Timestamp"/>
+ 		
+ 	</resultMap>
+ 	
+ 	<!-- listRole -->
+ 	<select id="listRole" resultMap="roleMap">
+ 		SELECT id,roleName FROM sl_role
+ 	</select>
+ </mapper>

@@ -20,13 +20,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
+import com.mysql.jdbc.StringUtils;
+import com.sl.common.PageSupport;
 import com.sl.common.RedisAPI;
 import com.sl.common.SLConstants;
+import com.sl.common.SQLTools;
 import com.sl.pojo.Authority;
 import com.sl.pojo.Function;
 import com.sl.pojo.Menu;
+import com.sl.pojo.role.Role;
 import com.sl.pojo.user.User;
 import com.sl.service.function.FunctionService;
+import com.sl.service.role.RoleService;
 import com.sl.service.user.UserService;
 
 
@@ -37,6 +42,8 @@ public class UserController extends BaseController{
 	private UserService userService;
 	@Resource
 	private FunctionService functionService;
+	@Resource
+	private RoleService roleService;
 	/*@Resource
 	private RedisAPI redisAPI;*/
 	/**
@@ -231,31 +238,111 @@ public class UserController extends BaseController{
 		}
 	}
 	
-	
-	
-	
-	@RequestMapping(value="/getRegister.html")
-	public String getRegister(){
-		return "userRegister";
-	}
-	@RequestMapping(value="userRegister.do")
-	public String userRegister(User user, Model model){	
-		try {
-			int rows = userService.saveUser(user);
-			if (rows > 0){
-				user = userService.getLoginUser(user);
-				model.addAttribute("user", user);
+	/**
+	 * 查询用户列表
+	 * @param model
+	 * @param session
+	 * @param s_loginCode
+	 * @param s_referCode
+	 * @param s_roleId
+	 * @param s_status
+	 * @return
+	 */
+	@RequestMapping(value="/background/userlist.html")
+	public ModelAndView userList(Model model,HttpSession session,
+			@RequestParam(value="s_loginCode",required=false) String s_loginCode,
+			@RequestParam(value="s_referCode",required=false) String s_referCode,
+			@RequestParam(value="s_roleId",required=false) String s_roleId,
+			@RequestParam(value="s_status",required=false) String s_status,
+			@RequestParam(value="currentPage",required=false,defaultValue="1")Integer currentPage){
+		@SuppressWarnings("unchecked")
+		Map<String, Object> baseModel = (Map<String, Object>) session.getAttribute(SLConstants.SESSION_BASE_MODEL);
+		if (baseModel == null){
+			
+			return new ModelAndView("redirect:/");
+		} else {
+			/*添加rolelist*/
+			List<Role> roleList = null;
+			try {
+				roleList = roleService.listRole();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			/*条件查询*/
+			User user = new User();
+			//账号
+			if (s_loginCode != null){
+				user.setLoginCode("%"+SQLTools.transfer(s_loginCode)+"%");
+			}
+			//推荐人
+			if (s_referCode != null){
+				user.setReferCode("%"+SQLTools.transfer(s_referCode)+"%");
+			}
+			//角色
+			if (!StringUtils.isNullOrEmpty(s_roleId)){
+				user.setRoleId(Integer.valueOf(s_roleId));
+			} else {
+				user.setStatus(null);
+			}
+			//状态
+			if (!StringUtils.isNullOrEmpty(s_status)){
+				user.setStatus(Integer.valueOf(s_status));
+			} else {
+				user.setStatus(null);
+			}
+			//page分页列表
+			PageSupport page = new PageSupport();
+			try {
+				page.setTotalCount(userService.totalCount(user));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				page.setTotalCount(0);
+			}
+			if (page.getTotalCount() > 0){
+				if (currentPage != null){
+					if (currentPage <= 0){
+						currentPage = 1;
+					}
+					if (currentPage > page.getPageCount()){
+						currentPage = page.getPageCount();
+					}
+					page.setCurrentPage(currentPage);
+				}
+				//分页查询---limit ?,?
+				user.setPageNo((page.getCurrentPage()-1)*page.getPageSize());
+				user.setPageSize(page.getPageSize());
+				List<User> userList = null;
+				try {
+					userList = userService.listUser(user);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					userList = null;
+					if (page == null){
+						page = new PageSupport();
+						page.setItems(null);
+					}
+				}
+				page.setItems(userList);
+				
+			} else {
+				page.setItems(null);
+			}
+			
+			model.addAllAttributes(baseModel);
+			model.addAttribute("roleList", roleList);
+			model.addAttribute("page", page);
+			model.addAttribute("s_loginCode", s_loginCode);
+			model.addAttribute("s_referCode", s_referCode);
+			model.addAttribute("s_roleId", s_roleId);
+			model.addAttribute("s_status", s_status);
+			return new ModelAndView("/backend/userlist");
 		}
-		return "registerSuccess";
+		
 	}
 	
-	@RequestMapping(value="/getExit.html")
-	public String getExit(){
-		return "userExit";
-	}
+	
 
 }

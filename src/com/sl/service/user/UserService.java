@@ -1,5 +1,7 @@
 package com.sl.service.user;
 
+import java.util.List;
+
 import com.sl.pojo.user.User;
 
 public interface UserService {
@@ -35,4 +37,19 @@ public interface UserService {
 	 * @throws Exception
 	 */
 	int updateUser(User user) throws Exception;
+	
+	/**
+	 * 获取总记录数
+	 * @param user
+	 * @return
+	 * @throws Exception
+	 */
+	int totalCount(User user) throws Exception;
+	/**
+	 * 用户列表
+	 * @param user
+	 * @return
+	 * @throws Exception
+	 */
+	List<User> listUser(User user) throws Exception;
 }
