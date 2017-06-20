@@ -91,7 +91,7 @@
 			    		</c:forEach>
 			    	</c:if>
 			    
-				    <tr>
+				   <!--  <tr>
 				        <td>David R</td>
 				        <td class="center">会员</td>
 				        <td class="center">注册会员</td>
@@ -112,18 +112,43 @@
 				                <i class="glyphicon glyphicon-trash icon-white"></i>删除
 				            </a>
 				        </td>
-				    </tr>
+				    </tr> -->
 				 </tbody>
 			</table>
-			<div class="pagination pagination-centered">
-				<ul>
+			<div>
+				<ul class="pagination pagination-centered">
 					<c:choose>
 						<c:when test="${page.currentPage == 1 }">
 							<li class="active"><a href="javascript:void();" title="首页">首页</a></li>          
 						</c:when>
-					
+						<c:otherwise>
+							<li><a href="<%=request.getContextPath()%>/background/userlist.html?currentPage=1&s_loginCode=${s_loginCode}&s_referCode=${s_referCode}&s_roleId=${s_roleId}&s_status=${s_status}" title="首页">首页</a></li>
+						</c:otherwise>
 					</c:choose>
-				
+					<c:if test="${page.prevPages != null}">
+						<c:forEach items="${page.prevPages }" var="num">
+							<li><a href="<%=request.getContextPath()%>/background/userlist.html?currentPage=${num }&s_loginCode=${s_loginCode}&s_referCode=${s_referCode}&s_roleId=${s_roleId}&s_status=${s_status}" title="${num }">${num }</a></li>
+						</c:forEach>
+					</c:if>
+					<li class="active"><a href="javascript:void();" title="${page.currentPage }">${page.currentPage }</a></li>
+					<c:if test="${page.nextPages != null}">
+						<c:forEach items="${page.nextPages }" var="num">
+							<li><a href="<%=request.getContextPath()%>/background/userlist.html?currentPage=${num }&s_loginCode=${s_loginCode}&s_referCode=${s_referCode}&s_roleId=${s_roleId}&s_status=${s_status}" title="${num }">${num }</a></li>
+						</c:forEach>
+					</c:if>
+					<c:if test="${page.pageCount != null }">
+						<c:choose>
+							<c:when test="${page.currentPage == page.pageCount }">
+								<li class="active"><a href="javascript:void();" title="尾页">尾页</a></li>          
+							</c:when>
+							<c:otherwise>
+								<li><a href="<%=request.getContextPath()%>/background/userlist.html?currentPage=${page.pageCount }&s_loginCode=${s_loginCode}&s_referCode=${s_referCode}&s_roleId=${s_roleId}&s_status=${s_status}" title="尾页">尾页</a></li>
+							</c:otherwise>
+						</c:choose>
+					</c:if>
+					<c:if test="${page.pageCount == null}">
+						<li class="active"><a href="javascript:void();" title="尾页">尾页</a></li>
+					</c:if>
 				</ul>
 				
 			</div>

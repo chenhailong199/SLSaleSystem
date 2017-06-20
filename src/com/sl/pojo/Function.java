@@ -1,8 +1,10 @@
 package com.sl.pojo;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class Function {
+public class Function implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private String functionCode;
 	private String functionName;

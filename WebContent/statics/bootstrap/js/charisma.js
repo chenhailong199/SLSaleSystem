@@ -11,7 +11,7 @@ $(document).ready(function () {
 		//配置子菜单
 		result = result + '<ul id="test'+i+'\" style="display:none">';
 		for (var j=0; j<json[i].subMenu.length; j++){
-			result = result + '<li><a href="'+ json[i].subMenu[j].functionUrl +'\">'+json[i].subMenu[j].functionName+'</a></li>';
+			result = result + '<li><a href="/SL'+ json[i].subMenu[j].functionUrl +'\">'+json[i].subMenu[j].functionName+'</a></li>';
 		}
 		result = result+'</ul>';
 	}

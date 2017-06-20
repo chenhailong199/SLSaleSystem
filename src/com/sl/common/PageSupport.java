@@ -1,16 +1,19 @@
 package com.sl.common;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class PageSupport {
 	private Integer totalCount = 0; //总记录数
 	private Integer pageCount; //总页数
-	private Integer pageSize = 10; //页面大小
+	private Integer pageSize = 5; //页面大小
 	private Integer currentPage = 1; //当前页
-	private Integer pageNum = 3; //当前页之前和之后显示的页数个数
+	private Integer pageNum = 2; //当前页之前和之后显示的页数个数
 	private List items = new ArrayList(); //当前页列表	
-	
+	private Set<Integer> prevPages = new HashSet<Integer>();
+	private Set<Integer> nextPages = new HashSet<Integer>();
 	/**
 	 * 获取上一页
 	 * @return
@@ -66,28 +69,26 @@ public class PageSupport {
 	}
 	
 	/**
-	 * 获取当前页 之前应显示的页码 集合 ,pageNum
+	 * 获取当前页 之前应显示的页码 集合 
 	 * @return
 	 */
-	public List<Integer> getPrevPages(){
-		List<Integer> list = new ArrayList<Integer>();
-		Integer  frontStart = 1;
+	public Set<Integer> getPrevPages() {
+		Integer  frontStart = 2;
 		if (currentPage > pageNum){
 			frontStart = currentPage - pageNum;
 			for (Integer i = frontStart; i < currentPage; i++){
-				list.add(i);
+				prevPages.add(i);
+				System.out.println("prevPages:"+i);
 			}
 		}
-		return list;
+		return prevPages;
 	}
-	
 	/**
 	 * 获取当前页 之后应显示的 页码 
 	 * @return
 	 */
-	public List<Integer> gerNextPages(){
-		List<Integer> list = new ArrayList<Integer>();
-		Integer  behindEnd = pageNum;
+	public Set<Integer> getNextPages() {
+		Integer  behindEnd = pageNum;//2
 		if (pageCount != null){
 			if (pageNum < currentPage && (pageNum+currentPage) < pageCount){
 				behindEnd = currentPage + pageNum;
@@ -95,10 +96,11 @@ public class PageSupport {
 				behindEnd = pageCount;
 			}
 			for (Integer i = currentPage+1; i <= behindEnd; i++){
-				list.add(i);
+				nextPages.add(i);
+				System.out.println("nextPages:"+i);
 			}
 		}
-		return list;
+		return nextPages;		
 	}
 	
 	/**
@@ -108,6 +110,10 @@ public class PageSupport {
 	public Integer getTotalCount() {
 		return totalCount;
 	}
+	
+
+	
+
 	/**
 	 * 计算总页数
 	 * @param totalCount
@@ -157,6 +163,14 @@ public class PageSupport {
 	}
 	public void setItems(List items) {
 		this.items = items;
+	}
+
+	public void setPrevPages(Set<Integer> prevPages) {
+		this.prevPages = prevPages;
+	}
+
+	public void setNextPages(Set<Integer> nextPages) {
+		this.nextPages = nextPages;
 	}
 	
 	

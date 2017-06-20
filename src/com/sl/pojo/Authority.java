@@ -1,5 +1,6 @@
 package com.sl.pojo;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
@@ -7,7 +8,8 @@ import java.sql.Timestamp;
  * @author chen
  *
  */
-public class Authority {
+public class Authority implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private Integer roleId;
 	private Integer functionId;

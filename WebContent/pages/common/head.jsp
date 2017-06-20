@@ -112,7 +112,7 @@
                     <ul class="nav nav-pills nav-stacked main-menu" id="menus">
 							<!-- 功能菜单栏 -->          
                     </ul>
-                  <li><a href="<%=request.getContextPath() %>/background/userlist.html">用户管理</a></li>
+                 
                 </div>
             </div>
         </div>

@@ -69,7 +69,6 @@ public class UserController extends BaseController{
 		User user = new User();
 		user.setLoginCode(loginCode);
 		user.setPassword(password);
-		user.setStatus(1);
 		if (user.getLoginCode() == null || "".equals(user.getLoginCode())){
 			return "nodata";
 		} else {
@@ -88,6 +87,7 @@ public class UserController extends BaseController{
 						Date date = new Date();
 						Timestamp tamp = new Timestamp(date.getTime());
 						updateUser.setLastLoginTime(tamp);
+						updateUser.setStatus(1);//状态启用
 						userService.updateUser(updateUser);
 						updateUser = null; //置为空,不再使用
 						return "success";

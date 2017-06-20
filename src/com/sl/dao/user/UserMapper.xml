@@ -72,6 +72,7 @@
  				<if test="loginCode != null">loginCode = #{loginCode},</if>
  				<if test="lastLoginTime != null">lastLoginTime = #{lastLoginTime},</if>
  				<if test="password != null">password = #{password},</if>
+ 				<if test="status != null">status = #{status},</if>
  			</set>
  			where id = #{id}
  	</update>	
