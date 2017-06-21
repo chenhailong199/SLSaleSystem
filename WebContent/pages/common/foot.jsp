@@ -43,7 +43,7 @@
 	<script src="/SL/statics/bootstrap/js/jquery.history.js"></script>
 	<!-- application script for Charisma demo -->
 	<script src="/SL/statics/bootstrap/js/charisma.js"></script>
-	<script src="/SL/statics/bootstrap/js/bootstrap.min.js"></script>
+	<!-- <script src="/SL/statics/bootstrap/js/bootstrap.min.js"></script> -->
 
 </body>
 </html>

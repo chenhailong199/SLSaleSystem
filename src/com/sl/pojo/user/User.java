@@ -23,6 +23,7 @@ public class User extends Base implements Serializable{
 	private Timestamp lastLoginTime;
 	private Integer roleId;
 	private Integer userTypeId;
+	private String userTypeName;
 	private String createdBy;
 	private Timestamp createdTime;
 	private String modifiedBy;
@@ -137,6 +138,14 @@ public class User extends Base implements Serializable{
 
 	public void setRole(Role role) {
 		this.role = role;
+	}
+
+	public String getUserTypeName() {
+		return userTypeName;
+	}
+
+	public void setUserTypeName(String userTypeName) {
+		this.userTypeName = userTypeName;
 	}
 	
 }

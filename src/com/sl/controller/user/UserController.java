@@ -14,7 +14,9 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,10 +28,12 @@ import com.sl.common.RedisAPI;
 import com.sl.common.SLConstants;
 import com.sl.common.SQLTools;
 import com.sl.pojo.Authority;
+import com.sl.pojo.DataDictionary;
 import com.sl.pojo.Function;
 import com.sl.pojo.Menu;
 import com.sl.pojo.role.Role;
 import com.sl.pojo.user.User;
+import com.sl.service.datadictionary.DataDictionaryService;
 import com.sl.service.function.FunctionService;
 import com.sl.service.role.RoleService;
 import com.sl.service.user.UserService;
@@ -44,6 +48,8 @@ public class UserController extends BaseController{
 	private FunctionService functionService;
 	@Resource
 	private RoleService roleService;
+	@Resource
+	private DataDictionaryService dataDictionaryService;
 	/*@Resource
 	private RedisAPI redisAPI;*/
 	/**
@@ -257,12 +263,15 @@ public class UserController extends BaseController{
 			@RequestParam(value="currentPage",required=false,defaultValue="1")Integer currentPage){
 		@SuppressWarnings("unchecked")
 		Map<String, Object> baseModel = (Map<String, Object>) session.getAttribute(SLConstants.SESSION_BASE_MODEL);
-		if (baseModel == null){
-			
+		if (baseModel == null){		
 			return new ModelAndView("redirect:/");
 		} else {
-			/*添加rolelist*/
+			//添加roleList and cardTypeList
 			List<Role> roleList = null;
+			DataDictionary data = new DataDictionary();
+			data.setTypeCode("CARD_TYPE");
+			List<DataDictionary> cardTypeList = dataDictionaryService.listDataDictionary(data);
+			
 			try {
 				roleList = roleService.listRole();
 			} catch (Exception e) {
@@ -333,6 +342,7 @@ public class UserController extends BaseController{
 			
 			model.addAllAttributes(baseModel);
 			model.addAttribute("roleList", roleList);
+			model.addAttribute("cardTypeList", cardTypeList);
 			model.addAttribute("page", page);
 			model.addAttribute("s_loginCode", s_loginCode);
 			model.addAttribute("s_referCode", s_referCode);
@@ -342,7 +352,88 @@ public class UserController extends BaseController{
 		}
 		
 	}
+	/**
+	 * 加载用户类型列表
+	 * @param s_roleId
+	 * @return
+	 */
+	@RequestMapping(value="/loadUserTypeList.html",produces={"text/html;charset=UTF-8"})
+	@ResponseBody
+	public String loadUserTypeList(@RequestParam(value="s_roleId",required=false) String s_roleId){
+		String json = "";
+		System.out.println("用户类型加载-----------------------");
+		try {
+			DataDictionary data = new DataDictionary();
+			data.setTypeCode("USER_TYPE");
+			List<DataDictionary> dataList = dataDictionaryService.listDataDictionary(data);
+			
+			json = JSON.toJSONString(dataList);
+			System.out.println(json);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return json;
+	}
+	/**
+	 * 验证用户名是否存在
+	 * @param loginCode
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="/background/loginCodeIsExit.html")
+	@ResponseBody
+	public String loginCodeIsExit(@RequestParam(value="loginCode",required=false) String loginCode,
+			@RequestParam(value="id",required=false) String id){
+		logger.info("loginCode----"+loginCode);
+		logger.info("id----"+id);
+		System.out.println("同名方法判断------------------------------");
+		String result = "failed";
+		User user = new User();
+		user.setLoginCode(loginCode);
+		if (!"-1".equals(id)){
+			//修改操作同名判断
+			user.setId(Integer.valueOf(id));
+		}
+		try {
+			int count = userService.loginCodeIsExit(user);
+			if (count == 0){
+				result = "only";
+			} else {
+				result = "repeat";
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		return result;
+	}
 	
 	
-
+	/**
+	 * 增加用户
+	 * @return
+	 */
+	@RequestMapping(value="/background/adduser.html",method=RequestMethod.POST)
+	public String addUser(HttpSession session, @ModelAttribute("addUser") User addUser){
+		if (session.getAttribute(SLConstants.SESSION_BASE_MODEL) == null){
+			return "redirect:/";
+		} else {
+			addUser.setPassword("123456");
+			addUser.setPayPwd("123456");
+			Date date = new Date();
+			Timestamp stramp = new Timestamp(date.getTime());
+			addUser.setCreatedTime(stramp);
+			addUser.setCreatedBy(this.getCurrentUser().getUserName());
+			addUser.setReferCode(this.getCurrentUser().getLoginCode());
+			
+			try {
+				userService.saveUser(addUser);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return "redirect:/background/userlist.html";
+		}
+	}
 }

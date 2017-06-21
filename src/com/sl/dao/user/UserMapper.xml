@@ -11,6 +11,7 @@
         <result property="payPwd" column="payPwd" javaType="java.lang.String"/>
         <result property="roleId" column="roleId" javaType="java.lang.Integer"/>
         <result property="userTypeId" column="userTypeId" javaType="java.lang.Integer"/>
+        <result property="userTypeName" column="userTypeName" javaType="java.lang.String"/>
         <result property="status" column="status" javaType="java.lang.Integer"/>
         <result property="referCode" column="referCode" javaType="java.lang.String"/>
         <result property="lastLoginTime" column="lastLoginTime" javaType="java.sql.Timestamp"/>
@@ -35,6 +36,7 @@
  		select count(*) from sl_user 
  			<trim prefix="where" prefixOverrides="and | or">
  				<if test="loginCode != null">loginCode = #{loginCode}</if>
+ 				<if test="id != null">id != #{id}</if>
  			</trim>
  	</select>
  	
@@ -62,8 +64,8 @@
  	</select>
  	
  	<insert id="saveUser" parameterType="User" > 
- 		insert into sl_user (loginCode,password) 
- 			values(#{loginCode},#{password})
+ 		insert into sl_user (loginCode,password,createdBy,createdTime,payPwd,referCode,roleId,userName,userTypeName) 
+ 			values(#{loginCode},#{password},#{createdBy},#{createdTime},#{payPwd},#{referCode},#{roleId},#{userName},#{userTypeName})
  	</insert>
  	
  	<update id="updateUser" parameterType="User" >

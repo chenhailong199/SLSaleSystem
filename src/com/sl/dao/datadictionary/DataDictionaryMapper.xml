@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.sl.dao.datadictionary.DataDictionaryMapper">
+ 	<resultMap type="DataDictionary" id="dataDictionaryMap">
+ 		<id property="id" column="id" javaType="java.lang.Integer"/>
+ 		<result property="typeCode" column="typeCode" javaType="java.lang.String"/>
+ 		<result property="typeName" column="typeName" javaType="java.lang.String"/>
+ 		<result property="valueId" column="valueId" javaType="java.lang.Integer"/>
+ 		<result property="valueName" column="valueName" javaType="java.lang.String"/>
+	</resultMap> 
+	
+	<select id="listDataDictionary" parameterType="DataDictionary" resultMap="dataDictionaryMap">
+		SELECT id,typeCode,typeName,valueId,valueName FROM data_dictionary 
+		<trim prefix="where" prefixOverrides="and | or">
+			<if test="typeCode != null">typeCode = #{typeCode}</if>
+			<if test="typeName != null">and typeName = #{typeName}</if>
+			<if test="valueId != null">and valueId = #{valueId}</if>
+			<if test="valueName != null">and valueName = #{valueName}</if>
+		</trim>
+			ORDER BY valueId ASC	
+	</select>
+		
+</mapper>
