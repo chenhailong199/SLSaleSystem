@@ -62,9 +62,11 @@
 				    </tr>
 			    </thead>
 			    <tbody>
+			    
 			    	<c:if test="${page.items != null }">
 			    		<c:forEach items="${page.items }" var="user">
 			    			<tr>
+			    				
 				        		<td class="center">${user.loginCode}</td>
 				        		<td class="center">${user.role.roleName }</td>
 				        		<td class="center">${user.userTypeName }</td>
@@ -77,13 +79,13 @@
 				        			<f:formatDate value="${user.createdTime }" pattern="yyyy-MM-dd HH:mm:ss"/>
 				        		</td>
 				        		 <td class="center">
-						            <a class="btn btn-success" href="#">
-						                <i class="glyphicon glyphicon-zoom-in icon-white"></i>查看 
+						            <a class="btn btn-success viewuser" href="#" id="${user.id }">
+						                <i class="glyphicon glyphicon-zoom-in icon-white "></i>查看
 						            </a>
-						            <a class="btn btn-info" href="#">
+						            <a class="btn btn-info modifyuser" href="#" id="${user.id }">
 						                <i class="glyphicon glyphicon-edit icon-white"></i>修改
 						            </a>
-						            <a class="btn btn-danger" href="#">
+						            <a class="btn btn-danger" href="#" id="${user.id }">
 						                <i class="glyphicon glyphicon-trash icon-white"></i>删除
 						            </a>
 						        </td>
@@ -135,8 +137,8 @@
 	<div class="modal fade" id="adduserdiv" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content">
-            <form action="<%=request.getContextPath() %>/background/adduser.html" method="get" enctype="multipart/form-data" onsubmit="return addUser();">
+        	<form action="<%=request.getContextPath() %>/background/adduser.html" method="post"  onsubmit="return addUser();">
+            <div class="modal-content">        
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">×</button>
                     <h3>添加用户信息</h3>
@@ -192,7 +194,7 @@
 						</li>
 						<li>
 							<label>生日:</label>
-							<input type="text" class="Wdate" id="a_birthday" size="15" name="birthday" readonly="readonly" onclick="WdatePicker();"/>
+							<input type="text" id="a_birthday" size="15" name="birthday" readonly="readonly" />
 						</li>
 						<li>
 							<label>推荐人:</label>
@@ -214,11 +216,118 @@
                     <a href="#" class="btn btn-default addusercancel" data-dismiss="modal">取消</a>
                     <button type="submit" class="btn btn-primary" data-dismiss="modal">保存</button>
                 </div>
-            </form>    
+             
             </div>
+             </form>  
         </div>      
     </div>
 	<!-- addUser end -->
+	
+	<!-- viewUser start -->
+	<div class="modal fade" id="viewuserdiv" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h3>查看用户信息</h3>
+                </div>
+                <div class="modal-body">
+                    <input id="v_id" type="hidden" value=""/>   
+                	<ul class="">
+                		<li>
+                			<lable>角色：</lable>
+                			<input id="v_rolename" type="text" value="" />
+                		</li>
+                		<li>
+                			<lable>会员类型：</lable>
+                			<input id="v_usertypename" type="text" value="" />
+                		</li>
+                		<li>
+                			<lable>用户名：</lable>
+                			<input id="v_logincode" type="text" value="" />
+                		</li>
+                		<li>
+                			<lable>姓名：</lable>
+                			<input id="v_username" type="text" value="" />
+                		</li>
+                		<li>
+                			<lable>性别：</lable>
+                			<input id="v_gender" type="text" value="" />
+                		</li>
+                		<li>
+                			<lable>注册时间：</lable>
+                			<input id="v_createdtime" type="text" value="" />
+                		</li>
+                	</ul>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-default addusercancel" data-dismiss="modal">关闭</a> 
+                </div>
+            </div>
+        </div>      
+    </div>
+	<!-- viewUser end -->
+	<!-- updateuser start -->
+	<div class="modal fade" id="modifyuserdiv" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+             <form action="<%=request.getContextPath() %>/background/modifyuser.html" method="get" enctype="multipart/form-data" onsubmit="return modifyUser();">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h3>修改用户信息</h3>
+                </div>
+                <div class="modal-body">
+                    <input id="m_id" type="hidden" value=""/>   
+                	<ul class="">
+                		<li>
+                			<lable>角色：</lable>
+                			<input id="m_rolename" name="roleName" type="text" value="" />
+                			<select id="m_roleId" name="roleId" style="width:100px;"></select>
+                			<span style="color:red;font-weight:bold;">*</span>
+                		</li>
+                		<li>
+                			<lable>会员类型：</lable>
+                			<input id="m_usertypename" name="userTypeName" type="text" value="" />
+                			<select id="m_selectusertype" name="userType" style="width:100px;"></select>
+                			<span style="color:red;font-weight:bold;">*</span>
+                		</li>
+                		<li>
+                			<lable>用户名：</lable>
+                			<input id="m_logincode" name="loginCode" type="text" value="" onkeyup="value=value.replace(/[^\w\.\/]/ig,'');" />
+                			<span style="color:red;font-weight:bold;">*</span>
+                		</li>
+                		<li>
+                			<lable>姓名：</lable>
+                			<input id="m_username" name="userName" type="text" value="" />
+                			<span style="color:red;font-weight:bold;">*</span>
+                		</li>
+                		<li>
+                			<lable>性别：</lable>
+                			<input id="m_gender" name="gender" type="text" value="" />
+                			<select id="m_selectgender">
+                				<option value="男">男</option>
+                				<option value="女">女</option>
+                			</select>
+                		</li>
+                		<li>
+                			<lable>注册时间：</lable>
+                			<input id="m_createdtime" name="createdTime" type="text" value="" readonly="readonly"/>
+                			
+                		</li>
+                	</ul>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-default" data-dismiss="modal">取消</a>     
+                    <button type="submit" class="btn btn-primary" data-dismiss="modal">保存</button>
+                </div>
+               </form>
+            </div>
+        </div>      
+    </div>
+	
+	<!-- updateuser end -->
 		
 <script type="text/javascript" src="/SL/statics/local/js/userlist.js"></script>
 

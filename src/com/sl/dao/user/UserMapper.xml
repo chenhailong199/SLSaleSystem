@@ -10,6 +10,7 @@
         <result property="password" column="password" javaType="java.lang.String"/>
         <result property="payPwd" column="payPwd" javaType="java.lang.String"/>
         <result property="roleId" column="roleId" javaType="java.lang.Integer"/>
+        <result property="gender" column="gender" javaType="java.lang.String"/>
         <result property="userTypeId" column="userTypeId" javaType="java.lang.Integer"/>
         <result property="userTypeName" column="userTypeName" javaType="java.lang.String"/>
         <result property="status" column="status" javaType="java.lang.Integer"/>
@@ -63,8 +64,15 @@
  		ORDER BY #{id} DESC LIMIT #{pageNo},#{pageSize}
  	</select>
  	
+ 	<select id="getUserById" parameterType="User" resultMap="userMap">
+ 		SELECT u.* ,r.roleName FROM sl_user u LEFT JOIN sl_role r ON u.roleId = r.id
+ 		<where>
+ 			<if test="id != null">u.id = #{id}</if>
+ 		</where>
+ 	</select>
+ 	
  	<insert id="saveUser" parameterType="User" > 
- 		insert into sl_user (loginCode,password,createdBy,createdTime,payPwd,referCode,roleId,userName,userTypeName) 
+ 		insert into sl_user(loginCode,password,createdBy,createdTime,payPwd,referCode,roleId,userName,userTypeName) 
  			values(#{loginCode},#{password},#{createdBy},#{createdTime},#{payPwd},#{referCode},#{roleId},#{userName},#{userTypeName})
  	</insert>
  	

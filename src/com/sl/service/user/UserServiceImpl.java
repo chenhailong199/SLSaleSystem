@@ -50,4 +50,10 @@ public class UserServiceImpl implements UserService{
 		return userMapper.listUser(user);
 	}
 
+	@Override
+	public User getUserById(User user) throws Exception {
+		// TODO Auto-generated method stub
+		return userMapper.getUserById(user);
+	}
+
 }

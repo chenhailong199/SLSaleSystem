@@ -23,11 +23,8 @@ $("#selectrole").change(function() {
 	$("#selectusertype").empty();
 	$("#selectusertype").append('<option value="-1" selected="selected">--请选择--</option>');
 	var s_roleId = $("#selectrole").val();
-	alert(s_roleId);
 	if (s_roleId == 2){
-		alert("异步方法外-----");
-		$.post("/loadUserTypeList.html",{"s_roleId":s_roleId},function(result){
-			alert("异步方法内-----");
+		$.post("/SL/loadUserTypeList.html",{"s_roleId":s_roleId},function(result){
 			if (result != ""){
 				alert(result);
 				for (var i=0; i<result.length; i++){
@@ -44,22 +41,20 @@ $("#selectrole").change(function() {
 });
 
 //会员类型 赋值
-$("#selectusertype").changed(function() {
+$("#selectusertype").change(function() {
 	$("#selectusertypename").val($("#selectusertype").find("option:selected"));
 });
 //证件类型 赋值
-$("#selectcardtype").changed(function() {
+$("#selectcardtype").change(function() {
 	$("#selectcardtypename").val($("#selectcardtype").find("option:selected"));
 });
 
 //判断是否重名(增加用户的时候)
 $("#a_logincode").blur(function() {
-	alert("移开事件");
 	var alc = $("#a_logincode").val();
 	if (alc != ""){
-		alert(alc);
 		//异步同名判断
-		$.post("background/loginCodeIsExit.html",{"loginCode":alc,"id":"-1"},callBack,"text");
+		$.post("/SL/background/loginCodeIsExit.html",{"loginCode":alc,"id":"-1"},callBack,"text");
 		function callBack(result){
 			if (result == "repeat"){
 				$("#add_prompt").css("color","red").html("<li>*该用户名已存在,请修改</li>");
@@ -107,5 +102,72 @@ function addUser(){
 	if(result) alert("添加成功");
 	return result;
 }
+
+//viewuser start
+$('.viewuser').click(function (e) {	
+	var v_id = $(this).attr('id');
+	//ajax异步调用
+	$.ajax({
+		url:'/SL/background/getUser.html',
+		type:'POST',
+		data:{id:v_id},
+		dataType:'json',
+		timeout:1000,
+		error:function() {alert("error");},
+		success:function(result) {
+			if ("failed" == result){
+				alert("操作超时");
+			} else if ("nodata" == result){
+				alert("没有数据");
+			} else {
+				$("#v_id").val(result.id);
+				$("#v_rolename").val(result.role.roleName);
+				$("#v_usertypename").val(result.userTypeName);
+				$("#v_logincode").val(result.loginCode);
+				$("#v_username").val(result.userName);
+				$("#v_gender").val(result.gender);
+				$("#v_createdtime").val(result.createdTime);
+				e.preventDefault();
+				$('#viewuserdiv').modal('show');
+			}	
+		}
+	});
+});
+//viewuser end
+
+/*modifyuser start*/
+$('.modifyuser').click(function(e) {
+	var m_id = $(this).attr('id');
+	$.ajax({
+		url:'/SL/background/getUser.html',
+		type:'POST',
+		data:{id:m_id},
+		dataType:'json',
+		timeout:1000,
+		error:function() {alert("error");},
+		success:function(result) {
+			if ("failed" == result){
+				alert("操作超时");
+			} else if ("nodata" == result){
+				alert("没有数据");
+			} else {
+				$("#m_id").val(result.id);
+				$("#m_rolename").val(result.role.roleName);
+				$("#m_usertypename").val(result.userTypeName);
+				$("#m_logincode").val(result.loginCode);
+				$("#m_username").val(result.userName);
+				$("#m_gender").val(result.gender);
+				$("#m_createdtime").val(result.createdTime);
+				
+				e.preventDefault();
+				$('#modifyuserdiv').modal('show');
+			}	
+		}
+	});
+});
+
+
+/*modifyuser end*/
+
 
 

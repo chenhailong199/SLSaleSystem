@@ -52,4 +52,12 @@ public interface UserService {
 	 * @throws Exception
 	 */
 	List<User> listUser(User user) throws Exception;
+	
+	/**
+	 * getUserById
+	 * @param user
+	 * @return
+	 * @throws Exception
+	 */
+	User getUserById(User user) throws Exception;
 }

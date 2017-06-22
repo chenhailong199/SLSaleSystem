@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
 import com.mysql.jdbc.StringUtils;
+import com.sl.common.JsonDateValueProcessor;
 import com.sl.common.PageSupport;
 import com.sl.common.RedisAPI;
 import com.sl.common.SLConstants;
@@ -37,6 +39,8 @@ import com.sl.service.datadictionary.DataDictionaryService;
 import com.sl.service.function.FunctionService;
 import com.sl.service.role.RoleService;
 import com.sl.service.user.UserService;
+
+import net.sf.json.JsonConfig;
 
 
 @Controller
@@ -387,7 +391,6 @@ public class UserController extends BaseController{
 			@RequestParam(value="id",required=false) String id){
 		logger.info("loginCode----"+loginCode);
 		logger.info("id----"+id);
-		System.out.println("同名方法判断------------------------------");
 		String result = "failed";
 		User user = new User();
 		user.setLoginCode(loginCode);
@@ -416,6 +419,7 @@ public class UserController extends BaseController{
 	 */
 	@RequestMapping(value="/background/adduser.html",method=RequestMethod.POST)
 	public String addUser(HttpSession session, @ModelAttribute("addUser") User addUser){
+		logger.info("addUser----------------"+addUser);
 		if (session.getAttribute(SLConstants.SESSION_BASE_MODEL) == null){
 			return "redirect:/";
 		} else {
@@ -426,7 +430,6 @@ public class UserController extends BaseController{
 			addUser.setCreatedTime(stramp);
 			addUser.setCreatedBy(this.getCurrentUser().getUserName());
 			addUser.setReferCode(this.getCurrentUser().getLoginCode());
-			
 			try {
 				userService.saveUser(addUser);
 			} catch (Exception e) {
@@ -436,4 +439,32 @@ public class UserController extends BaseController{
 			return "redirect:/background/userlist.html";
 		}
 	}
+	
+	@RequestMapping(value="/background/getUser.html",produces={"text/html;charset=UTF-8"})
+	@ResponseBody
+	public String viewUser(@RequestParam(value="id",required=false) String id){
+		String json = "";
+		if (id == null || "".equals(id)){
+			return "nodata";
+		} else {
+			User user = new User();
+			user.setId(Integer.valueOf(id));
+			try {
+				user = userService.getUserById(user);
+				//日期格式按此进行json转换
+				//JsonConfig jsonConfig = new JsonConfig();
+				//jsonConfig.registerJsonValueProcessor(Date.class, new JsonDateValueProcessor());
+				json = JSON.toJSONString(user);
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return "failed";
+			}
+		}
+		return json;
+	}
+	
+	
+	
 }

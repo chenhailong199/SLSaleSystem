@@ -22,6 +22,7 @@ public class User extends Base implements Serializable{
 	private String referCode; //推荐人
 	private Timestamp lastLoginTime;
 	private Integer roleId;
+	private String gender;
 	private Integer userTypeId;
 	private String userTypeName;
 	private String createdBy;
@@ -146,6 +147,14 @@ public class User extends Base implements Serializable{
 
 	public void setUserTypeName(String userTypeName) {
 		this.userTypeName = userTypeName;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 	
 }
