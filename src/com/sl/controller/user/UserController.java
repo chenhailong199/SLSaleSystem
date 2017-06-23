@@ -452,8 +452,8 @@ public class UserController extends BaseController{
 			try {
 				user = userService.getUserById(user);
 				//日期格式按此进行json转换
-				//JsonConfig jsonConfig = new JsonConfig();
-				//jsonConfig.registerJsonValueProcessor(Date.class, new JsonDateValueProcessor());
+				JsonConfig jsonConfig = new JsonConfig();
+				jsonConfig.registerJsonValueProcessor(Timestamp.class, new JsonDateValueProcessor());
 				json = JSON.toJSONString(user);
 				
 			} catch (Exception e) {
