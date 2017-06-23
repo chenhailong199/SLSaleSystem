@@ -85,5 +85,8 @@
  				<if test="status != null">status = #{status},</if>
  			</set>
  			where id = #{id}
- 	</update>	
+ 	</update>
+ 	<delete id="removeUser" parameterType="User">
+ 		DELETE FROM sl_user WHERE id = #{id}
+ 	</delete>	
  </mapper>	

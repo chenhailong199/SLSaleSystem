@@ -168,6 +168,26 @@ $('.modifyuser').click(function(e) {
 
 
 /*modifyuser end*/
-
-
+/*deluser start*/
+$(".deluser").click(function() {
+	var d = $(this);
+	var d_id = d.attr("id");
+	var d_usertypeid = d.attr("userTypeId");
+	var d_usertypename = d.attr("userTypeName");
+	var d_logincode = d.attr('loginCode');
+	if (confirm('您确定要删除'+d_logincode+'吗?')){
+		$.post("/SL/background/deluser.html",{'delId':d_id,'loginCode':d_logincode,'userTypeId':d_usertypeid},callBack,"text");
+		function callBack(result){
+			if (result == "success"){
+				alert("删除成功");
+				window.location.href="/SL/background/userlist.html";
+			} else if (result == "noallow"){
+				alert("该用户类型为["+d_usertypename+"],不允许删除!");
+			} else{
+				alert("删除失败");
+			} 
+		}
+	}
+});
+/*deluser end*/
 

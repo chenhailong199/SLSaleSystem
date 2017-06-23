@@ -465,6 +465,32 @@ public class UserController extends BaseController{
 		return json;
 	}
 	
+	@RequestMapping(value="/background/deluser.html")
+	@ResponseBody
+	public String delUser(@RequestParam(value="delId",required=false) String delId,
+			@RequestParam(value="loginCode",required=false) String loginCode,
+			@RequestParam(value="userTypeId",required=false) String userTypeId){
+		logger.info("deluser---------------"+loginCode);
+		String result = "failed";
+		User user = new User();
+		user.setId(Integer.valueOf(delId));
+		logger.info("id---------------"+user.getId());
+		//只有注册会员可以删除
+		if ("2".equals(userTypeId) || "3".equals(userTypeId) || "4".equals(userTypeId)){
+			result = "noallow";
+		} else {
+			//先删附件,再删数据
+			try {
+				if (userService.removeUser(user) > 0){
+					result = "success";
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
 	
 	
 }

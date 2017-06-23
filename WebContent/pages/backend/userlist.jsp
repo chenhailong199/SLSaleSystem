@@ -41,10 +41,10 @@
 									<option value="1" >启用</option>
 									<option value="0" selected="selected">未启用</option>
 								</c:if>
-								<c:if test="${s_status == null || s_status == '' }">
+								<%-- <c:if test="${s_status == null || ''.equals(s_status) }">
 									<option value="1" >启用</option>
 									<option value="0" >未启用</option>
-								</c:if>
+								</c:if> --%>
 					   	   </select>
 					  <button class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-search"> 查询</i></button> 	   	
 				</div>
@@ -85,7 +85,10 @@
 						            <a class="btn btn-info modifyuser" href="#" id="${user.id }">
 						                <i class="glyphicon glyphicon-edit icon-white"></i>修改
 						            </a>
-						            <a class="btn btn-danger" href="#" id="${user.id }">
+						            <a class="btn btn-danger deluser" href="#" id="${user.id }" 
+						                loginCode="${user.loginCode }" 
+						                userTypeId="${user.userTypeId }"
+						                userTypeName="${user.userTypeName }">
 						                <i class="glyphicon glyphicon-trash icon-white"></i>删除
 						            </a>
 						        </td>
@@ -284,13 +287,13 @@
                 		<li>
                 			<lable>角色：</lable>
                 			<input id="m_rolename" name="roleName" type="text" value="" />
-                			<select id="m_roleId" name="roleId" style="width:100px;"></select>
+                			<!-- <select id="m_roleId" name="roleId" style="width:100px;"></select> -->
                 			<span style="color:red;font-weight:bold;">*</span>
                 		</li>
                 		<li>
                 			<lable>会员类型：</lable>
                 			<input id="m_usertypename" name="userTypeName" type="text" value="" />
-                			<select id="m_selectusertype" name="userType" style="width:100px;"></select>
+                			<!-- <select id="m_selectusertype" name="userType" style="width:100px;"></select> -->
                 			<span style="color:red;font-weight:bold;">*</span>
                 		</li>
                 		<li>
@@ -306,10 +309,10 @@
                 		<li>
                 			<lable>性别：</lable>
                 			<input id="m_gender" name="gender" type="text" value="" />
-                			<select id="m_selectgender">
+                			<!-- <select id="m_selectgender">
                 				<option value="男">男</option>
                 				<option value="女">女</option>
-                			</select>
+                			</select> -->
                 		</li>
                 		<li>
                 			<lable>注册时间：</lable>

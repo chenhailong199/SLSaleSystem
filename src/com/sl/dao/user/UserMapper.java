@@ -63,4 +63,12 @@ public interface UserMapper {
 	 * @throws Exception
 	 */
 	User getUserById(User user) throws Exception;
+	
+	/**
+	 * 删除用户
+	 * @param user
+	 * @return
+	 * @throws Exception
+	 */
+	int removeUser(User user) throws Exception;
 }
