@@ -2,7 +2,7 @@ package com.sl.service.role;
 
 import java.util.List;
 
-import com.sl.pojo.role.Role;
+import com.sl.pojo.Role;
 
 public interface RoleService {
 	/**

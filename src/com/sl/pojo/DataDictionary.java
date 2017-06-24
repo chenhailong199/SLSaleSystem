@@ -2,7 +2,9 @@ package com.sl.pojo;
 
 import java.io.Serializable;
 
-public class DataDictionary implements Serializable{
+
+
+public class DataDictionary extends Base implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private String typeCode;

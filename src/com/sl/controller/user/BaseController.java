@@ -13,7 +13,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.sl.common.SLConstants;
-import com.sl.pojo.user.User;
+import com.sl.pojo.User;
 
 public class BaseController {
 	//private Logger logger  = Logger.getLogger(BaseController.class);

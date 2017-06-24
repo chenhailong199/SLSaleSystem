@@ -1,49 +1,46 @@
 package com.sl.pojo;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * 用户权限类
  * @author chen
  *
  */
-public class Authority implements Serializable{
+public class Authority extends Base implements Serializable{
 	private static final long serialVersionUID = 1L;
-	private Integer id;
-	private Integer roleId;
-	private Integer functionId;
-	private Integer userTypeId;
+	private int roleId;
+	private int functionId;
+	private int userTypeId;
+	private Date creationTime;
 	private String createdBy;
-	private Timestamp createdTime;
-	private String modifiedBy;
-	private Timestamp modifiedTime;
 	public Authority() {
 		super();
 	}
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	public Integer getRoleId() {
+	public int getRoleId() {
 		return roleId;
 	}
-	public void setRoleId(Integer roleId) {
+	public void setRoleId(int roleId) {
 		this.roleId = roleId;
 	}
-	public Integer getFunctionId() {
+	public int getFunctionId() {
 		return functionId;
 	}
-	public void setFunctionId(Integer functionId) {
+	public void setFunctionId(int functionId) {
 		this.functionId = functionId;
 	}
-	public Integer getUserTypeId() {
+	public int getUserTypeId() {
 		return userTypeId;
 	}
-	public void setUserTypeId(Integer userTypeId) {
+	public void setUserTypeId(int userTypeId) {
 		this.userTypeId = userTypeId;
+	}
+	public Date getCreationTime() {
+		return creationTime;
+	}
+	public void setCreationTime(Date creationTime) {
+		this.creationTime = creationTime;
 	}
 	public String getCreatedBy() {
 		return createdBy;
@@ -51,24 +48,5 @@ public class Authority implements Serializable{
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
 	}
-	public Timestamp getCreatedTime() {
-		return createdTime;
-	}
-	public void setCreatedTime(Timestamp createdTime) {
-		this.createdTime = createdTime;
-	}
-	public String getModifiedBy() {
-		return modifiedBy;
-	}
-	public void setModifiedBy(String modifiedBy) {
-		this.modifiedBy = modifiedBy;
-	}
-	public Timestamp getModifiedTime() {
-		return modifiedTime;
-	}
-	public void setModifiedTime(Timestamp modifiedTime) {
-		this.modifiedTime = modifiedTime;
-	}
-	
 	
 }

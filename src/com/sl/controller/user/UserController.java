@@ -33,8 +33,8 @@ import com.sl.pojo.Authority;
 import com.sl.pojo.DataDictionary;
 import com.sl.pojo.Function;
 import com.sl.pojo.Menu;
-import com.sl.pojo.role.Role;
-import com.sl.pojo.user.User;
+import com.sl.pojo.Role;
+import com.sl.pojo.User;
 import com.sl.service.datadictionary.DataDictionaryService;
 import com.sl.service.function.FunctionService;
 import com.sl.service.role.RoleService;
@@ -97,7 +97,7 @@ public class UserController extends BaseController{
 						Date date = new Date();
 						Timestamp tamp = new Timestamp(date.getTime());
 						updateUser.setLastLoginTime(tamp);
-						updateUser.setStatus(1);//状态启用
+						updateUser.setIsStart(1);//状态启用
 						userService.updateUser(updateUser);
 						updateUser = null; //置为空,不再使用
 						return "success";
@@ -296,13 +296,13 @@ public class UserController extends BaseController{
 			if (!StringUtils.isNullOrEmpty(s_roleId)){
 				user.setRoleId(Integer.valueOf(s_roleId));
 			} else {
-				user.setStatus(null);
+				user.setIsStart(null);
 			}
 			//状态
 			if (!StringUtils.isNullOrEmpty(s_status)){
-				user.setStatus(Integer.valueOf(s_status));
+				user.setIsStart(Integer.valueOf(s_status));
 			} else {
-				user.setStatus(null);
+				user.setIsStart(null);
 			}
 			//page分页列表
 			PageSupport page = new PageSupport();
@@ -424,11 +424,9 @@ public class UserController extends BaseController{
 			return "redirect:/";
 		} else {
 			addUser.setPassword("123456");
-			addUser.setPayPwd("123456");
+			addUser.setPassword2("123456");
 			Date date = new Date();
-			Timestamp stramp = new Timestamp(date.getTime());
-			addUser.setCreatedTime(stramp);
-			addUser.setCreatedBy(this.getCurrentUser().getUserName());
+			addUser.setCreateTime(date);
 			addUser.setReferCode(this.getCurrentUser().getLoginCode());
 			try {
 				userService.saveUser(addUser);

@@ -2,7 +2,7 @@ package com.sl.dao.role;
 
 import java.util.List;
 
-import com.sl.pojo.role.Role;
+import com.sl.pojo.Role;
 
 public interface RoleMapper {
 	/**

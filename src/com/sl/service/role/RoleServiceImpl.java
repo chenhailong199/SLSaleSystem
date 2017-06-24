@@ -7,7 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.sl.dao.role.RoleMapper;
-import com.sl.pojo.role.Role;
+import com.sl.pojo.Role;
 @Service
 public class RoleServiceImpl implements RoleService {
 	@Resource

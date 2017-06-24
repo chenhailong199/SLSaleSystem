@@ -7,7 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.sl.dao.user.UserMapper;
-import com.sl.pojo.user.User;
+import com.sl.pojo.User;
 
 @Service
 public class UserServiceImpl implements UserService{

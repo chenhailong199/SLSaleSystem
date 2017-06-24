@@ -1,37 +1,26 @@
 package com.sl.pojo;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
 
 public class Function implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private String functionCode;
 	private String functionName;
-	private String functionUrl;
-	private Integer parentId;
-	private Timestamp createdTime;
-	private Timestamp modifiedTime;
+	private String funcUrl;
+	private int parentId;
+	private Date creationTime;
 	private Integer roleId;
 	public Function() {
 		super();
 	}
-	public Function(String functionCode, String functionName, String functionUrl, Integer parentId,
-			Timestamp createdTime, Timestamp modifiedTime) {
-		super();
-		this.functionCode = functionCode;
-		this.functionName = functionName;
-		this.functionUrl = functionUrl;
-		this.parentId = parentId;
-		this.createdTime = createdTime;
-		this.modifiedTime = modifiedTime;
-	}
-	
 	@Override
 	public String toString() {
-		return "Function [id=" + id + ", functionCode=" + functionCode + ", functionName=" + functionName
-				+ ", functionUrl=" + functionUrl + ", parentId=" + parentId + ", createdTime=" + createdTime
-				+ ", modifiedTime=" + modifiedTime + "]";
+		return "Function [id=" + id + ", functionCode=" + functionCode + ", functionName=" + functionName + ", funcUrl="
+				+ funcUrl + ", parentId=" + parentId + ", creationTime=" + creationTime + ", roleId=" + roleId
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
+				+ "]";
 	}
 	public Integer getId() {
 		return id;
@@ -51,29 +40,23 @@ public class Function implements Serializable{
 	public void setFunctionName(String functionName) {
 		this.functionName = functionName;
 	}
-	public String getFunctionUrl() {
-		return functionUrl;
+	public String getFuncUrl() {
+		return funcUrl;
 	}
-	public void setFunctionUrl(String functionUrl) {
-		this.functionUrl = functionUrl;
+	public void setFuncUrl(String funcUrl) {
+		this.funcUrl = funcUrl;
 	}
-	public Integer getParentId() {
+	public int getParentId() {
 		return parentId;
 	}
-	public void setParentId(Integer parentId) {
+	public void setParentId(int parentId) {
 		this.parentId = parentId;
 	}
-	public Timestamp getCreatedTime() {
-		return createdTime;
+	public Date getCreationTime() {
+		return creationTime;
 	}
-	public void setCreatedTime(Timestamp createdTime) {
-		this.createdTime = createdTime;
-	}
-	public Timestamp getModifiedTime() {
-		return modifiedTime;
-	}
-	public void setModifiedTime(Timestamp modifiedTime) {
-		this.modifiedTime = modifiedTime;
+	public void setCreationTime(Date creationTime) {
+		this.creationTime = creationTime;
 	}
 	public Integer getRoleId() {
 		return roleId;

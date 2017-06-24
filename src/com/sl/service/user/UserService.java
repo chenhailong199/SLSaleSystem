@@ -2,7 +2,7 @@ package com.sl.service.user;
 
 import java.util.List;
 
-import com.sl.pojo.user.User;
+import com.sl.pojo.User;
 
 public interface UserService {
 	/**
