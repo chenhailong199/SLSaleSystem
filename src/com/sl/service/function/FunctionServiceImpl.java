@@ -25,4 +25,10 @@ public class FunctionServiceImpl implements FunctionService {
 		return functionMapper.listSubFunction(function);
 	}
 
+	@Override
+	public List<Function> listFunctionByRoId(Authority authority) throws Exception {
+		// TODO Auto-generated method stub
+		return functionMapper.listFunctionByRoId(authority);
+	}
+
 }

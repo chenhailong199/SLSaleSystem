@@ -38,6 +38,7 @@ public interface UserService {
 	 */
 	int updateUser(User user) throws Exception;
 	
+
 	/**
 	 * 获取总记录数
 	 * @param user
@@ -45,6 +46,7 @@ public interface UserService {
 	 * @throws Exception
 	 */
 	int totalCount(User user) throws Exception;
+	
 	/**
 	 * 用户列表
 	 * @param user
@@ -54,12 +56,21 @@ public interface UserService {
 	List<User> listUser(User user) throws Exception;
 	
 	/**
+	 * listUserBySearch
+	 * @param user
+	 * @return
+	 * @throws Exception
+	 */
+	List<User> listUserBySearch(User user) throws Exception;
+	
+	/**
 	 * getUserById
 	 * @param user
 	 * @return
 	 * @throws Exception
 	 */
 	User getUserById(User user) throws Exception;
+	
 	/**
 	 * 删除用户
 	 * @param user
@@ -67,4 +78,19 @@ public interface UserService {
 	 * @throws Exception
 	 */
 	int removeUser(User user) throws Exception;
+	
+	/**
+	 * 更改用户角色
+	 * @param user
+	 * @return
+	 */
+	int updateUserRole(User user) throws Exception;
+	
+	/**
+	 * 删除用户图片
+	 * @param user
+	 * @return
+	 * @throws Exception
+	 */
+	int delUserPic(User user) throws Exception;
 }

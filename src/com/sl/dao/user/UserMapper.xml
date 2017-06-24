@@ -8,29 +8,36 @@
  		<result property="userName" column="userName" javaType="java.lang.String"/>
  		<result property="loginCode" column="loginCode" javaType="java.lang.String"/>
         <result property="password" column="password" javaType="java.lang.String"/>
-        <result property="payPwd" column="payPwd" javaType="java.lang.String"/>
-        <result property="roleId" column="roleId" javaType="java.lang.Integer"/>
-        <result property="gender" column="gender" javaType="java.lang.String"/>
-        <result property="userTypeId" column="userTypeId" javaType="java.lang.Integer"/>
-        <result property="userTypeName" column="userTypeName" javaType="java.lang.String"/>
-        <result property="status" column="status" javaType="java.lang.Integer"/>
-        <result property="referCode" column="referCode" javaType="java.lang.String"/>
-        <result property="lastLoginTime" column="lastLoginTime" javaType="java.sql.Timestamp"/>
- 		<result property="createdBy" column="createdBy" javaType="java.lang.String"/>
- 		<result property="createdTime" column="createdTime" javaType="java.sql.Timestamp"/>
- 		<result property="modifiedBy" column="modifiedBy" javaType="java.lang.String"/>
- 		<result property="modifiedTime" column="modifiedTime" javaType="java.sql.Timestamp"/>
-		<!-- 配置一对一关联查询,association标签 -->
- 		<association property="role" javaType="Role">
- 			<id property="id" column="id" javaType="java.lang.Integer"/>
- 			<result property="roleName" column="roleName" javaType="java.lang.String"/>
- 			<result property="createdTime" column="createdTime" javaType="java.sql.Timestamp"/>
- 		</association>	 	
+        <result property="password2" column="password2" javaType="java.lang.String"/>
+        <result property="sex" column="sex" javaType="java.lang.String"/>
+        <result property="birthday" column="birthday" javaType="java.util.Date"/>
+        <result property="cardType" column="cardType" javaType="java.lang.String"/>
+        <result property="cardTypeName" column="cardTypeName" javaType="java.lang.String"/>
+        <result property="idCard" column="idCard" javaType="java.lang.String"/>
+        <result property="country" column="country" javaType="java.lang.String"/>
+        <result property="mobile" column="mobile" javaType="java.lang.String"/>
+ 		<result property="email" column="email" javaType="java.lang.String"/>
+ 		<result property="userAddress" column="userAddress" javaType="java.lang.String"/>
+ 		<result property="postCode" column="postCode" javaType="java.lang.String"/>
+ 		<result property="createTime" column="createTime" javaType="java.util.Date"/>
+		<result property="referId" column="referId" javaType="java.lang.Integer"/>
+		<result property="referCode" column="referCode" javaType="java.lang.String"/>
+		<result property="roleId" column="roleId" javaType="java.lang.Integer"/>
+		<result property="roleName" column="roleName" javaType="java.lang.String"/>
+		<result property="userType" column="userType" javaType="java.lang.String"/>
+		<result property="userTypeName" column="userTypeName" javaType="java.lang.String"/>
+		<result property="isStart" column="isStart" javaType="java.lang.Integer"/>
+		<result property="lastUpdateTime" column="lastUpdateTime" javaType="java.util.Date"/>
+		<result property="lastLoginTime" column="lastLoginTime" javaType="java.util.Date"/>
+		<result property="bankName" column="bankName" javaType="java.lang.String"/>
+		<result property="accountHolder" column="accountHolder" javaType="java.lang.String"/>
+		<result property="bankAccount" column="bankAccount" javaType="java.lang.String"/>
+		<result property="idCardPicPath" column="idCardPicPath" javaType="java.lang.String"/>
+		<result property="bankPicPath" column="bankPicPath" javaType="java.lang.String"/>	
  	</resultMap>
  			
  	<select id="getLoginUser" parameterType="User" resultMap="userMap">
- 		select u.*,r.roleName from sl_user u LEFT JOIN sl_role r ON u.roleId = r.id
- 			where loginCode = #{loginCode} and password = #{password}
+ 		select * from au_user where loginCode = #{loginCode} and password = #{password}
  	</select>
  	
  	<select id="loginCodeIsExit" resultType="int">
@@ -44,12 +51,28 @@
  	<select id="totalCount" resultType="int" parameterType="User">
  		select count(*) from sl_user
  		<trim prefix="where" prefixOverrides="and | or">
- 			<if test="loginCode != null">loginCode like CONCAT('%',#{loginCode},'%')</if>
- 			<if test="userName != null">and userName like CONCAT('%',#{userName},'%')</if>
- 			<if test="referCode != null">and referCode like CONCAT('%',#{referCode},'%')</if>
- 			<if test="status != null">and status = #{status}</if>
- 			<if test="roleId != null">and roleId = #{roleId}</if>
- 		</trim>
+			<if test="userName != null">
+			 and userName like  CONCAT('%',#{userName},'%')
+			</if>
+			<if test="loginCode != null">
+			 and loginCode like  CONCAT('%',#{loginCode},'%')
+			</if>
+			<if test="roleId != null">
+			  and roleId = #{roleId}
+			</if>
+			<if test="isStart != null">
+			  and isStart = #{isStart}
+			</if>
+			<if test="referCode != null">
+			  and referCode like  CONCAT('%',#{referCode},'%')
+			</if>
+			<if test="referId != null">
+			  and referId = #{referId}
+			</if>
+			<if test="userType != null">
+			  and userType = #{userType}
+			</if>
+		</trim>
  	</select>
  	
  	<select id="listUser" parameterType="User" resultMap="userMap">
@@ -64,29 +87,99 @@
  		ORDER BY #{id} DESC LIMIT #{pageNo},#{pageSize}
  	</select>
  	
+ 	<select id="listUserBySearch" resultType="user" parameterType="user">
+		select * from au_user 
+		<trim prefix="where" prefixOverrides="and | or">
+			<if test="userName != null">
+			 and userName like #{userName}
+			</if>
+			<if test="loginCode != null">
+			 and loginCode like #{loginCode}
+			</if>
+			<if test="roleId != null">
+			  and roleId = #{roleId}
+			</if>
+			<if test="isStart != null">
+			  and isStart = #{isStart}
+			</if>
+			<if test="referCode != null">
+			  and referCode like #{referCode}
+			</if>
+			<if test="referId != null">
+			  and referId = #{referId}
+			</if>
+			<if test="userType != null">
+			  and userType = #{userType}
+			</if>
+		</trim>
+	</select>
+ 	
+ 	
  	<select id="getUserById" parameterType="User" resultMap="userMap">
- 		SELECT u.* ,r.roleName FROM sl_user u LEFT JOIN sl_role r ON u.roleId = r.id
- 		<where>
- 			<if test="id != null">u.id = #{id}</if>
- 		</where>
+ 		select * from au_user where id = #{id}
  	</select>
  	
  	<insert id="saveUser" parameterType="User" > 
- 		insert into sl_user(loginCode,password,createdBy,createdTime,payPwd,referCode,roleId,userName,userTypeName) 
- 			values(#{loginCode},#{password},#{createdBy},#{createdTime},#{payPwd},#{referCode},#{roleId},#{userName},#{userTypeName})
+ 		insert into au_user (loginCode,password,password2,userName,sex,birthday,cardType,
+							 cardTypeName,idCard,country,mobile,email,userAddress,postCode,
+							 createTime,referId,referCode,roleId,roleName,userType,userTypeName,
+							 isStart,lastUpdateTime,lastLoginTime,bankName,accountHolder,bankAccount,idCardPicPath,bankPicPath) values 
+							 (#{loginCode},#{password},#{password2},#{userName},#{sex},#{birthday},
+							 #{cardType},#{cardTypeName},#{idCard},#{country},#{mobile},#{email},#{userAddress},
+							 #{postCode},#{createTime},#{referId},#{referCode},#{roleId},#{roleName},#{userType},
+							 #{userTypeName},#{isStart},#{lastUpdateTime},#{lastLoginTime},#{bankName},#{accountHolder},#{bankAccount},#{idCardPicPath},#{bankPicPath})
  	</insert>
  	
  	<update id="updateUser" parameterType="User" >
- 		update sl_user 
- 			<set>
- 				<if test="loginCode != null">loginCode = #{loginCode},</if>
- 				<if test="lastLoginTime != null">lastLoginTime = #{lastLoginTime},</if>
- 				<if test="password != null">password = #{password},</if>
- 				<if test="status != null">status = #{status},</if>
- 			</set>
- 			where id = #{id}
+ 			update au_user 
+			<set>
+				 <if test="loginCode != null"> loginCode = #{loginCode},</if>
+				 <if test="userName != null"> userName = #{userName},</if>
+				 <if test="password != null"> password = #{password},</if>
+				 <if test="password2 != null"> password2 = #{password2},</if>
+				 <if test="sex != null"> sex = #{sex},</if>
+				 <if test="birthday != null"> birthday = #{birthday},</if>
+				 <if test="cardType != null"> cardType = #{cardType},</if>
+				 <if test="cardTypeName != null"> cardTypeName = #{cardTypeName},</if>
+				 <if test="idCard != null"> idCard = #{idCard},</if>
+				 <if test="country != null"> country = #{country},</if>
+				 <if test="mobile != null"> mobile = #{mobile},</if>
+				 <if test="email != null"> email = #{email},</if>
+				 <if test="userAddress != null"> userAddress = #{userAddress},</if>
+				 <if test="postCode != null"> postCode = #{postCode},</if>
+				 <if test="createTime != null"> createTime = #{createTime},</if>
+				 <if test="referId != null"> referId = #{referId},</if>
+				 <if test="referCode != null"> referCode = #{referCode},</if>
+				 <if test="roleId != null"> roleId = #{roleId},</if>
+				 <if test="roleName != null"> roleName = #{roleName},</if>
+				 <if test="userType != null"> userType = #{userType},</if>
+				 <if test="userTypeName != null"> userTypeName = #{userTypeName},</if>
+			 	 <if test="isStart != null"> isStart = #{isStart},</if>
+			 	 <if test="lastUpdateTime != null"> lastUpdateTime = #{lastUpdateTime},</if>
+			 	 <if test="lastLoginTime != null"> lastLoginTime = #{lastLoginTime},</if>
+			 	 <if test="bankName != null"> bankName = #{bankName},</if>
+			 	 <if test="accountHolder != null"> accountHolder = #{accountHolder},</if>
+			 	 <if test="bankAccount != null"> bankAccount = #{bankAccount},</if>
+			 	 <if test="idCardPicPath != null"> idCardPicPath = #{idCardPicPath},</if>
+			 	 <if test="bankPicPath != null"> bankPicPath = #{bankPicPath}</if>
+		     </set>
+		  	where id = #{id}
  	</update>
+ 	
+ 	<update id="updateUserRole" parameterType="user">
+		update au_user set roleName = #{roleName} where roleId = #{roleId}
+	</update>
+ 	
  	<delete id="removeUser" parameterType="User">
- 		DELETE FROM sl_user WHERE id = #{id}
+ 		delete from au_user where id = #{id}
  	</delete>	
+ 	
+ 	<update id="delUserPic" parameterType="user">
+		update au_user 
+			<set>
+			 	 <if test="idCardPicPath != null"> idCardPicPath = null,</if>
+			 	 <if test="bankPicPath != null"> bankPicPath = null</if>
+		     </set>
+		  	where id = #{id}
+	</update>
  </mapper>	

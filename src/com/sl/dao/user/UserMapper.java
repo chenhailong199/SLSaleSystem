@@ -57,6 +57,14 @@ public interface UserMapper {
 	List<User> listUser(User user) throws Exception;
 	
 	/**
+	 * listUserBySearch
+	 * @param user
+	 * @return
+	 * @throws Exception
+	 */
+	List<User> listUserBySearch(User user) throws Exception;
+	
+	/**
 	 * getUserById
 	 * @param user
 	 * @return
@@ -71,4 +79,19 @@ public interface UserMapper {
 	 * @throws Exception
 	 */
 	int removeUser(User user) throws Exception;
+	
+	/**
+	 * 更改用户角色
+	 * @param user
+	 * @return
+	 */
+	int updateUserRole(User user) throws Exception;
+	
+	/**
+	 * 删除用户图片
+	 * @param user
+	 * @return
+	 * @throws Exception
+	 */
+	int delUserPic(User user) throws Exception;
 }

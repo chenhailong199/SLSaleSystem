@@ -21,4 +21,11 @@ public interface FunctionService {
 	 * @throws Exception
 	 */
 	List<Function> listSubFunction(Function function) throws Exception;
+	/**
+	 * listFunctionByRoId
+	 * @param authority
+	 * @return
+	 * @throws Exception
+	 */
+	List<Function> listFunctionByRoId(Authority authority) throws Exception;
 }

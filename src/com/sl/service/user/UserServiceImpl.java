@@ -62,4 +62,22 @@ public class UserServiceImpl implements UserService{
 		return userMapper.removeUser(user);
 	}
 
+	@Override
+	public List<User> listUserBySearch(User user) throws Exception {
+		// TODO Auto-generated method stub
+		return userMapper.listUserBySearch(user);
+	}
+
+	@Override
+	public int updateUserRole(User user) throws Exception {
+		// TODO Auto-generated method stub
+		return userMapper.updateUserRole(user);
+	}
+
+	@Override
+	public int delUserPic(User user) throws Exception {
+		// TODO Auto-generated method stub
+		return userMapper.delUserPic(user);
+	}
+
 }

@@ -10,6 +10,7 @@ import java.util.Date;
  */
 public class User extends Base implements Serializable{
 	private static final long serialVersionUID = 1L;
+	private Integer id;
 	private String loginCode;
 	private String password;
 	private String password2;
@@ -216,7 +217,13 @@ public class User extends Base implements Serializable{
 	public void setBankPicPath(String bankPicPath) {
 		this.bankPicPath = bankPicPath;
 	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	
-
+	
 	
 }
