@@ -1,5 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@include file="/pages/common/head.jsp"%>
+<%@ include file="/pages/common/head.jsp"%>
 <div>
 	<ul class="breadcrumb">
 		<li><a href="#">后台管理</a> <span class="divider">/</span></li>
@@ -102,35 +102,35 @@
 					<div class="pagination pagination-centered">
 					  <ul>
 					  <c:choose>
-					  	<c:when test="${page.page == 1}">
+					  	<c:when test="${page.currentPage == 1}">
 					  	<li class="active"><a href="javascript:void();" title="首页">首页</a></li>
 					  	</c:when>
 					  	<c:otherwise>
-					  	<li><a href="/backend/userlist.html?currentpage=1&s_loginCode=${s_loginCode}&s_referCode=${s_referCode}&s_roleId=${s_roleId}&s_isStart=${s_isStart}" title="首页">首页</a></li>
+					  	<li><a href="/SL/backend/userlist.html?currentpage=1&s_loginCode=${s_loginCode}&s_referCode=${s_referCode}&s_roleId=${s_roleId}&s_isStart=${s_isStart}" title="首页">首页</a></li>
 					  	</c:otherwise>
 					  </c:choose>
 						<c:if test="${page.prevPages!=null}">
 							<c:forEach items="${page.prevPages}" var="num">
-								<li><a href="/backend/userlist.html?currentpage=${num}&s_loginCode=${s_loginCode}&s_referCode=${s_referCode}&s_roleId=${s_roleId}&s_isStart=${s_isStart}"
+								<li><a href="/SL/backend/userlist.html?currentpage=${num}&s_loginCode=${s_loginCode}&s_referCode=${s_referCode}&s_roleId=${s_roleId}&s_isStart=${s_isStart}"
 									class="number" title="${num}">${num}</a></li>
 							</c:forEach>
 						</c:if>
 						<li class="active">
-						  <a href="#" title="${page.page}">${page.page}</a>
+						  <a href="#" title="${page.currentPage}">${page.currentPage}</a>
 						</li>
 						<c:if test="${page.nextPages!=null}">
 							<c:forEach items="${page.nextPages}" var="num">
-								<li><a href="/backend/userlist.html?currentpage=${num}&s_loginCode=${s_loginCode}&s_referCode=${s_referCode}&s_roleId=${s_roleId}&s_isStart=${s_isStart}" title="${num}">
+								<li><a href="/SL/backend/userlist.html?currentpage=${num}&s_loginCode=${s_loginCode}&s_referCode=${s_referCode}&s_roleId=${s_roleId}&s_isStart=${s_isStart}" title="${num}">
 								${num} </a></li>
 							</c:forEach>
 						</c:if>
 						<c:if test="${page.pageCount !=null}">
 							<c:choose>
-						  	<c:when test="${page.page == page.pageCount}">
+						  	<c:when test="${page.currentPage == page.pageCount}">
 						  	<li class="active"><a href="javascript:void();" title="尾页">尾页</a></li>
 						  	</c:when>
 						  	<c:otherwise>
-						  	<li><a href="/backend/userlist.html?currentpage=${page.pageCount}&s_loginCode=${s_loginCode}&s_referCode=${s_referCode}&s_roleId=${s_roleId}&s_isStart=${s_isStart}" title="尾页">尾页</a></li>
+						  	<li><a href="/SL/backend/userlist.html?currentpage=${page.pageCount}&s_loginCode=${s_loginCode}&s_referCode=${s_referCode}&s_roleId=${s_roleId}&s_isStart=${s_isStart}" title="尾页">尾页</a></li>
 						  	</c:otherwise>
 						    </c:choose>
 					    </c:if>
@@ -145,7 +145,7 @@
 		</div><!--/row-->
 
 	<div class="modal hide fade" id="addUserDiv">
-		<form action="/backend/adduser.html" enctype="multipart/form-data" method="post" onsubmit="return addUserFunction();">
+		<form action="/SL/backend/adduser.html" enctype="multipart/form-data" method="post" onsubmit="return addUserFunction();">
 			<div class="modal-header">
 				<button type="button" class="close addusercancel" data-dismiss="modal">×</button>
 				<h3>添加用户信息</h3>
@@ -237,7 +237,7 @@
 					  <span style="color:red;font-weight: bold;">*</span>
 					</li>
 					<li>
-					  <label>推荐人：</label><input type="text" name="referCode" value="${user.loginCode}" readonly="readonly"/>
+					  <label>推荐人：</label><input type="text" name="referCode" value="${currentUser.loginCode}" readonly="readonly"/>
 					</li>
 					<li>
 					  <label>注册时间：</label>
@@ -287,7 +287,7 @@
 	 
 	 
 	 <div class="modal hide fade" id="modifyUserDiv">
-		<form action="/backend/modifyuser.html" enctype="multipart/form-data" method="post" onsubmit="return modifyUserFunction();">
+		<form action="/SL/backend/modifyuser.html" enctype="multipart/form-data" method="post" onsubmit="return modifyUserFunction();">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">×</button>
 				<h3>修改用户信息</h3>
@@ -494,6 +494,7 @@
 					(正反面)：</label>
 						<input type="hidden" id="v_fileInputIDPath" value=""/>
 						<div id="v_idPic"></div>
+						<!-- <img alt="" src="/SL/statics/uploadfiles/1395382710471_IDcard.jpg"> -->
 					 </li>
 				</ul>
 				<ul class="downul">
@@ -510,7 +511,7 @@
 			</div>
 	 </div>
 	 
-<%@include file="/pages/common/foot.jsp"%>
+<%@ include file="/pages/common/foot.jsp"%>
 <script type="text/javascript">
     var cartTypeListJson =	[<c:forEach  items="${cardTypeList}" var="cardType"> 
 							{"valueId":"${cardType.valueId}","valueName":"${cardType.valueName}"},
@@ -519,4 +520,4 @@
 						{"id":"${role.id}","roleName":"${role.roleName}"},
 						</c:forEach>{"id":"over","roleName":"over"}];
 </script>
-<script type="text/javascript" src="/statics/local/js/userlist.js"></script> 
+<script type="text/javascript" src="/SL/statics/local/js/userlist.js"></script> 

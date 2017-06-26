@@ -1,5 +1,4 @@
 $("#loginBtn").click(function(){
-	alert("点击登录------------->");
 	var user = new Object();
 	user.loginCode = $.trim($("#logincode").val());
 	user.password = $.trim($("#password").val());
@@ -17,7 +16,7 @@ $("#loginBtn").click(function(){
 		$("#formtip").html("");
 		
 		$.ajax({
-			url: '/login.html',
+			url: '/SL/login.html',
 			type: 'POST',
 			data:{user:JSON.stringify(user)},
 			dataType: 'text',

@@ -15,12 +15,12 @@
  	
  	<select id="listMainFunction" resultMap="functionMap" parameterType="authority">
  		SELECT * FROM au_function WHERE parentId = 0  AND id IN 
- 			( SELECT functionId FROM au_function WHERE roleId = #{roleId} )
+ 			( SELECT functionId FROM au_authority WHERE roleId = #{roleId} )
  	</select>
  	
  	<select id="listSubFunction" resultMap="functionMap" parameterType="function">
  		SELECT * FROM au_function WHERE parentId = #{id}  AND id IN 
- 			( SELECT functionId FROM au_function WHERE roleId = #{roleId} )
+ 			( SELECT functionId FROM au_authority WHERE roleId = #{roleId} )
  	</select>
  	
  	<select id="listFunctionByRoId" resultMap="functionMap" parameterType="function">

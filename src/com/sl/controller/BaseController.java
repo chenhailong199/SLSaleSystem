@@ -47,7 +47,7 @@ public class BaseController {
 			/*匿名内部类*/
 			public void setAsText(String value){
 				try {
-					setValue(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(value));
+					setValue(new SimpleDateFormat("yyyy-MM-dd").parse(value));
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

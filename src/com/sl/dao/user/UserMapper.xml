@@ -81,7 +81,7 @@
  			<if test="loginCode != null">loginCode like CONCAT('%',#{loginCode},'%')</if>
  			<if test="userName != null">and userName like CONCAT('%',#{userName},'%')</if>
  			<if test="referCode != null">and referCode like CONCAT('%',#{referCode},'%')</if>
- 			<if test="status != null">and isStart = #{status}</if>
+ 			<if test="isStart != null">and isStart = #{isStart}</if>
  			<if test="roleId != null">and roleId = #{roleId}</if>
  		</trim>
  		ORDER BY #{id} DESC LIMIT #{pageNo},#{pageSize}

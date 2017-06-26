@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSON;
 import com.mysql.jdbc.StringUtils;
 import com.sl.common.JsonDateValueProcessor;
 import com.sl.common.PageSupport;
@@ -639,6 +640,7 @@ public class UserController extends BaseController{
 	@RequestMapping(value = "/backend/getuser.html", produces = {"text/html;charset=UTF-8"})
 	@ResponseBody
 	public Object getUser(@RequestParam(value="id",required=false) String id){
+		logger.info("/backend/getuser.html--------------------->"+id);
 		String cjson = "";
 		if(null == id || "".equals(id)){
 			return "nodata";
@@ -647,16 +649,18 @@ public class UserController extends BaseController{
 				User user = new User();
 				user.setId(Integer.valueOf(id));
 				user = userService.getUserById(user);
-				JsonConfig jsonConfig = new JsonConfig();
-				jsonConfig.registerJsonValueProcessor(Date.class,new JsonDateValueProcessor());
-				JSONObject jo = JSONObject.fromObject(user,jsonConfig);
-				cjson = jo.toString();
+				//JsonConfig jsonConfig = new JsonConfig();
+				//jsonConfig.registerJsonValueProcessor(Date.class,new JsonDateValueProcessor());
+				//JSONObject jo = JSONObject.fromObject(user,jsonConfig);
+				cjson = JSON.toJSONString(user);
+				//cjson = jo.toString();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return "failed";
 			}
-				return cjson;
+			System.out.println(cjson.toString());	
+			return cjson;
 		}
 		
 	}

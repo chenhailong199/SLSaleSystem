@@ -1,5 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@include file="/pages/common/head.jsp"%>
+<%@ include file="/pages/common/head.jsp"%>
 			<div class="row-fluid sortable">		
 				<div class="box span12">
 					<div class="box-header well" data-original-title>
@@ -50,4 +50,4 @@
 				
 				
 				
-<%@include file="/pages/common/foot.jsp"%>
+<%@ include file="/pages/common/foot.jsp"%>

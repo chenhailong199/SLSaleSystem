@@ -95,7 +95,7 @@ public class PageSupport {
 			} else {
 				behindEnd = pageCount;
 			}
-			for (Integer i = currentPage+1; i <= behindEnd; i++){
+			for (Integer i = currentPage+1; i < behindEnd; i++){
 				nextPages.add(i);
 				System.out.println("nextPages:"+i);
 			}

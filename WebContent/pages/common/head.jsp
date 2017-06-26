@@ -27,6 +27,9 @@
 	div .modal-body label {
 		color:black;
 	}
+	ul li{
+		list-style:none;
+	}
 	</style>
 	<link href="/SL/statics/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 	<link href="/SL/statics/bootstrap/css/charisma-app.css" rel="stylesheet">
@@ -55,10 +58,10 @@
 	<link href='/SL/statics/local/css/mymessage.css' rel='stylesheet'>
 	<link href='/SL/statics/local/css/messagelist.css' rel='stylesheet'>
 	
-	<link rel="shortcut icon" href="/statics/img/favicon.ico">
-<!-- 	<script type="text/javascript">
+	<link rel="shortcut icon" href="/SL/statics/bootstrap/img/favicon.ico">
+	<script type="text/javascript">
 		var tt = '${mList}';
-	</script> -->
+	</script> 
 </head>
 <body>
 		<!-- topbar starts -->
@@ -70,16 +73,16 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</a>
-				<a class="brand" href="/main.html"> <img alt="Charisma Logo" src="/statics/img/logo20.png" /> <span>SL会员商城</span></a>
+				<a class="brand" href="/main.html"> <img alt="Charisma Logo" src="/SL/statics/bootstrap/img/logo20.png" /> <span>SL会员商城</span></a>
 				<div class="btn-group pull-right" >
 					<ul class="nav">
-						<li><a href="#">你好，${user.loginCode}</a></li>
-						<li><a href="#">角色：${user.roleName}</a></li>
+						<li><a href="#">你好，${currentUser.loginCode}</a></li>
+						<li><a href="#">角色：${currentUser.roleName}</a></li>
 						<li><a href="/main.html">首页</a></li>
 						<li><a href="#">购物车</a></li>
 						<li><a href="#">留言板</a></li>
 						<li><a href="javascript:void();" class="btn-setting modifypwd">修改密码</a></li>
-						<li><a href="/logout.html">注销</a></li>
+						<li><a href="/SL/logout.html">注销</a></li>
 					</ul>
 				</div>
 				<div class="modal hide fade" id="myModal">
@@ -104,7 +107,7 @@
 					</div>
 					<div class="modal-footer">
 						<a href="#" class="btn" data-dismiss="modal">取消</a>
-						<a href="#" id="modifySavePassword" class="btn btn-primary">修改</a>
+						<button href="#" id="modifySavePassword" class="btn btn-primary">修改</button>
 					</div>
 				</div>
 			</div>
@@ -117,10 +120,9 @@
 			<!-- left menu starts -->
 			<div class="span2 main-menu-span">
 				<div class="well nav-collapse sidebar-nav">
-					<ul class="nav nav-tabs nav-stacked main-menu" id="menus"></ul>
-					<!-- 
-					<label id="for-is-ajax" class="hidden-tablet" for="is-ajax"><input id="is-ajax" type="checkbox"> Ajax on menu</label>
-				 	-->
+					<ul class="nav nav-tabs nav-stacked main-menu" id="menus">
+						
+					</ul>					
 				</div><!--/.well -->
 			</div><!--/span-->
 			<!-- left menu ends -->

@@ -4,8 +4,8 @@
 				</div><!--/fluid-row-->
 		<hr>
 		<footer>
-			<p class="pull-left">&copy; <a href="#" target="_blank">bdqn</a> 2014</p>
-			<p class="pull-right">Powered by: <a href="#">北大青鸟</a></p>
+			<p class="pull-left">&copy; <a href="#" target="_blank">chen</a> 2017</p>
+			<p class="pull-right">Powered by: <a href="#">SL</a></p>
 		</footer>
 		
 	</div><!--/.fluid-container-->
