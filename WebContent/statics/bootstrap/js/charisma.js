@@ -1,6 +1,23 @@
-$(document).ready(function(){
+$(document).ready(function(){	
+	/**
+	 * 添加 menuList
+	 * */
+  /*  alert("添加menulist");
+	var result = "";
+	var json = eval('('+tt+')');
+	for (var i=0; i<json.length; i++){
+		var arrs = new Array("icon-home","icon-eye-open","icon-edit","icon-list-alt","icon-font","icon-picture","icon-home");
+		//配置主菜单
+		result = result + '<li><a class="ajax-link" href="#" onclick="$(\'#test'+i+'\').toggle(500);"><i class="'+ arrs[i] +'"></i><span> '+json[i].mainMenu.functionName+'</span></a></li>';
+		//配置子菜单
+		result = result + '<ul id="test'+i+'\" style="display:none">';
+		for (var j=0; j<json[i].subMenu.length; j++){
+			result = result + '<li><a href="/SL'+ json[i].subMenu[j].functionUrl +'\">'+json[i].subMenu[j].functionName+'</a></li>';
+		}
+		result = result+'</ul>';
+	}
+	$("#menus").append(result);*/
 	
-	/**modifypassword add by bdqn_hl 2014-2-28 start*/
 	
 	$("#modifySavePassword").click(function(){
 		var tip = $("#modifypwdtip");
@@ -34,10 +51,10 @@ $(document).ready(function(){
 			user.password = oldpwd;
 			user.password2 = newpwd;
 			$.ajax({
-				url: '/backend/modifyPwd.html',
+				url: '/SL/backend/modifyPwd.html',
 				type: 'POST',
 				data:{userJson:JSON.stringify(user)},
-				dataType: 'html',
+				dataType: 'text',
 				timeout: 1000,
 				error: function(){
 					alert("修改密码失败！请重试。");
@@ -61,64 +78,14 @@ $(document).ready(function(){
 		}
 	});
 	
-	/**modifypassword add by bdqn_hl 2014-2-28 end*/
+	
     var d = new Date();
 //    $('#a_cdate').val((d.getMonth()+1)+'/'+d.getDate()+'/'+d.getFullYear());
 //    $('#reply_createTime').val((d.getMonth()+1)+'/'+d.getDate()+'/'+d.getFullYear());
     $('#a_cdate').val(d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate());
     $('#reply_createTime').val(d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate());
 	
-	/**menu add by bdqn_hl 2014-2-27 start*/
-	var result = "";
-	var json = eval('(' + tt + ')');
-	//alert(tt);
-	//$("#jsonstr").append(tt);
-	for(var i = 0;i<json.length;i++){
-		/*
-		<li class="nav-header hidden-tablet" onclick="$('#test1').toggle(500);">后台管理</li>
-		<li>
-			<ul class="nav nav-tabs nav-stacked" id="test1">
-			<li><a class="ajax-link" href="index.html"><i class="icon-home"></i><span class="hidden-tablet">用户管理</span></a></li>
-			<li><a class="ajax-link" href="ui.html"><i class="icon-eye-open"></i><span class="hidden-tablet">角色管理</span></a></li>
-			<li><a class="ajax-link" href="form.html"><i class="icon-edit"></i><span class="hidden-tablet"> 权限管理</span></a></li>
-			<li><a class="ajax-link" href="chart.html"><i class="icon-list-alt"></i><span class="hidden-tablet">商品管理</span></a></li>
-			<li><a class="ajax-link" href="typography.html"><i class="icon-font"></i><span class="hidden-tablet">商品套餐管理</span></a></li>
-			<li><a class="ajax-link" href="gallery.html"><i class="icon-picture"></i><span class="hidden-tablet">基础信息</span></a></li>
-			<li><a class="ajax-link" href="gallery.html"><i class="icon-picture"></i><span class="hidden-tablet">数据字典</span></a></li>
-			</ul>
-		</li>
-		 */
-		
-		//config main menu
-		result = result + '<li class="nav-header hidden-tablet" onclick="$(\'#test'+i+'\').toggle(500);" style="cursor:pointer;">'+json[i].mainMenu.functionName+'</li>';
-		//config sub menus
-		result = result + "<li><ul class=\"nav nav-tabs nav-stacked\" id=\"test"+i+"\">";
-		
-		for(var j=0;j<json[i].subMenus.length;j++){
-			var pic;
-			switch(j)
-			{
-			case 0:
-				pic = "icon-home";break;
-			case 1:
-				pic = "icon-eye-open"; break;
-			case 2:
-				pic = "icon-edit";break;
-			case 3:
-				pic = "icon-list-alt";break;
-			case 4:
-				pic = "icon-font";break;
-			case 5:
-				pic = "icon-picture";break;
-			default:
-				pic = "icon-picture";break;
-			}
-			result = result + "<li><a class=\"ajax-link\" style=\"cursor:pointer;\" href=\""+json[i].subMenus[j].funcUrl +"\"><i class="+pic+"></i><span class=\"hidden-tablet\">"+json[i].subMenus[j].functionName + "</span></a></li>";
-		}
-		result = result +"</ul></li>";
-	}
-	$("#menus").append(result);
-	/**menu add by bdqn_hl 2014-2-27 end*/
+    
 	
 	
 	
