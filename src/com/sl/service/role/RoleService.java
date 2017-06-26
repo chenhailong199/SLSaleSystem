@@ -58,4 +58,12 @@ public interface RoleService {
 	 * @throws Exception
 	 */
 	int removeRole(Role role) throws Exception;
+	
+	/**
+	 * tm_modifyRole
+	 * @param role
+	 * @return
+	 * @throws Exception
+	 */
+	boolean tm_modifyRole(Role role) throws Exception;
 }

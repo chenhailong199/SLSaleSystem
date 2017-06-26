@@ -75,7 +75,7 @@
 		</trim>
  	</select>
  	
- 	<select id="listUser" parameterType="user" resultMap="userMap">
+ 	<select id="listUserByPage" parameterType="user" resultMap="userMap">
  		select * from au_user
  		<trim prefix="where" prefixOverrides="and | or">
  			<if test="loginCode != null">loginCode like CONCAT('%',#{loginCode},'%')</if>

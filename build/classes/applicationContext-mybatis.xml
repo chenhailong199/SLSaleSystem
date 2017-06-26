@@ -83,7 +83,7 @@
    <!-- txAdvice 定义事务管理器,所有以hl开头的方法都要进行事务处理 -->
    <tx:advice id="txAdvice" transaction-manager="transactionManager">
    		<tx:attributes>
-   			<tx:method name="hl*" propagation="REQUIRED" rollback-for="Exception"/>
+   			<tx:method name="tm*" propagation="REQUIRED" rollback-for="Exception"/>
    		</tx:attributes>
    </tx:advice>
     

@@ -53,7 +53,7 @@ public interface UserService {
 	 * @return
 	 * @throws Exception
 	 */
-	List<User> listUser(User user) throws Exception;
+	List<User> listUserByPage(User user) throws Exception;
 	
 	/**
 	 * listUserBySearch

@@ -14,6 +14,15 @@ public class Role  extends Base implements Serializable{
 	public Role() {
 		super();
 	}
+	
+	
+	@Override
+	public String toString() {
+		return "Role [id=" + id + ", roleCode=" + roleCode + ", roleName=" + roleName + ", isStart=" + isStart
+				+ ", createDate=" + createDate + ", createdBy=" + createdBy + "]";
+	}
+
+
 	public Integer getId() {
 		return id;
 	}

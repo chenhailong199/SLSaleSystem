@@ -30,4 +30,12 @@ public interface FunctionMapper {
 	 * @throws Exception
 	 */
 	List<Function> listFunctionByRoId(Authority authority) throws Exception;
+
+	/**
+	 * 获得父id为0的所有子菜单
+	 * @param function
+	 * @return
+	 * @throws Exception
+	 */
+	List<Function> listSubFunctionForAuthority(Function function) throws Exception;
 }

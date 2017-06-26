@@ -14,15 +14,15 @@
  	
  	<!-- listRole -->
  	<select id="listRole" resultMap="roleMap">
- 		SELECT id,roleName FROM au_role
+ 		SELECT id,roleCode,roleName,createDate,isStart,createdBy FROM au_role
  	</select>
  	
  	<select id="listRoleIdAndName" resultMap="roleMap">
-		select * from au_role where isStart=1
+		select id,roleCode,roleName,createDate,isStart,createdBy from au_role where isStart=1
 	</select>
 	
 	<select id="getRole" resultMap="roleMap" parameterType="Role">
-		select * from au_role 
+		select id,roleCode,roleName,createDate,isStart,createdBy from au_role 
 		<trim prefix="where" prefixOverrides="and | or">
 			<if test=" id != null">
 				and id = #{id}
@@ -34,7 +34,7 @@
 	</select>
 	
 	<select id="getRoleR" resultMap="roleMap" parameterType="Role">
-		select * from au_role where roleCode = #{roleCode} or roleName = #{roleName}
+		select id,roleCode,roleName,createDate,isStart,createdBy from au_role where roleCode = #{roleCode} or roleName = #{roleName}
 	</select>
 	
 	<insert id="saveRole" parameterType="Role" >

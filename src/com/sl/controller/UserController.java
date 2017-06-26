@@ -25,7 +25,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
 import com.mysql.jdbc.StringUtils;
-import com.sl.common.JsonDateValueProcessor;
 import com.sl.common.PageSupport;
 import com.sl.common.SLConstants;
 import com.sl.common.SQLTools;
@@ -117,7 +116,7 @@ public class UserController extends BaseController{
 				user.setPageSize(page.getPageSize());
 				List<User> userList = null;
 				try {
-					userList = userService.listUser(user);
+					userList = userService.listUserByPage(user);
 				}catch (Exception e) {
 					// TODO: handle exception
 					e.printStackTrace();
@@ -589,7 +588,7 @@ public class UserController extends BaseController{
 				user.setPageSize(page.getPageSize());
 				List<User> userList = null;
 				try {
-					userList = userService.listUser(user);
+					userList = userService.listUserByPage(user);
 				}catch (Exception e) {
 					// TODO: handle exception
 					e.printStackTrace();

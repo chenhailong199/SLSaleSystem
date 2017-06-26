@@ -10,30 +10,37 @@ import java.util.Date;
  */
 public class Authority extends Base implements Serializable{
 	private static final long serialVersionUID = 1L;
-	private int roleId;
-	private int functionId;
-	private int userTypeId;
+	private Integer id;
+	private Integer roleId;
+	private Integer functionId;
+	private Integer userTypeId;
 	private Date creationTime;
 	private String createdBy;
 	public Authority() {
 		super();
 	}
-	public int getRoleId() {
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public Integer getRoleId() {
 		return roleId;
 	}
-	public void setRoleId(int roleId) {
+	public void setRoleId(Integer roleId) {
 		this.roleId = roleId;
 	}
-	public int getFunctionId() {
+	public Integer getFunctionId() {
 		return functionId;
 	}
-	public void setFunctionId(int functionId) {
+	public void setFunctionId(Integer functionId) {
 		this.functionId = functionId;
 	}
-	public int getUserTypeId() {
+	public Integer getUserTypeId() {
 		return userTypeId;
 	}
-	public void setUserTypeId(int userTypeId) {
+	public void setUserTypeId(Integer userTypeId) {
 		this.userTypeId = userTypeId;
 	}
 	public Date getCreationTime() {
@@ -48,5 +55,6 @@ public class Authority extends Base implements Serializable{
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
 	}
+	
 	
 }
