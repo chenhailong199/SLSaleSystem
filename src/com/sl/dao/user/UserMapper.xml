@@ -36,20 +36,20 @@
 		<result property="bankPicPath" column="bankPicPath" javaType="java.lang.String"/>	
  	</resultMap>
  			
- 	<select id="getLoginUser" parameterType="User" resultMap="userMap">
+ 	<select id="getLoginUser" parameterType="user" resultMap="userMap">
  		select * from au_user where loginCode = #{loginCode} and password = #{password}
  	</select>
  	
  	<select id="loginCodeIsExit" resultType="int">
- 		select count(*) from sl_user 
+ 		select count(*) from au_user 
  			<trim prefix="where" prefixOverrides="and | or">
  				<if test="loginCode != null">loginCode = #{loginCode}</if>
  				<if test="id != null">id != #{id}</if>
  			</trim>
  	</select>
  	
- 	<select id="totalCount" resultType="int" parameterType="User">
- 		select count(*) from sl_user
+ 	<select id="totalCount" resultType="int" parameterType="user">
+ 		select count(*) from au_user
  		<trim prefix="where" prefixOverrides="and | or">
 			<if test="userName != null">
 			 and userName like  CONCAT('%',#{userName},'%')
@@ -75,13 +75,13 @@
 		</trim>
  	</select>
  	
- 	<select id="listUser" parameterType="User" resultMap="userMap">
- 		SELECT u.* ,r.roleName FROM sl_user u LEFT JOIN sl_role r ON u.roleId = r.id
+ 	<select id="listUser" parameterType="user" resultMap="userMap">
+ 		select * from au_user
  		<trim prefix="where" prefixOverrides="and | or">
  			<if test="loginCode != null">loginCode like CONCAT('%',#{loginCode},'%')</if>
  			<if test="userName != null">and userName like CONCAT('%',#{userName},'%')</if>
  			<if test="referCode != null">and referCode like CONCAT('%',#{referCode},'%')</if>
- 			<if test="status != null">and status = #{status}</if>
+ 			<if test="status != null">and isStart = #{status}</if>
  			<if test="roleId != null">and roleId = #{roleId}</if>
  		</trim>
  		ORDER BY #{id} DESC LIMIT #{pageNo},#{pageSize}
@@ -115,7 +115,7 @@
 	</select>
  	
  	
- 	<select id="getUserById" parameterType="User" resultMap="userMap">
+ 	<select id="getUserById" parameterType="user" resultMap="userMap">
  		select * from au_user where id = #{id}
  	</select>
  	
@@ -130,7 +130,7 @@
 							 #{userTypeName},#{isStart},#{lastUpdateTime},#{lastLoginTime},#{bankName},#{accountHolder},#{bankAccount},#{idCardPicPath},#{bankPicPath})
  	</insert>
  	
- 	<update id="updateUser" parameterType="User" >
+ 	<update id="updateUser" parameterType="user" >
  			update au_user 
 			<set>
 				 <if test="loginCode != null"> loginCode = #{loginCode},</if>
@@ -170,7 +170,7 @@
 		update au_user set roleName = #{roleName} where roleId = #{roleId}
 	</update>
  	
- 	<delete id="removeUser" parameterType="User">
+ 	<delete id="removeUser" parameterType="user">
  		delete from au_user where id = #{id}
  	</delete>	
  	

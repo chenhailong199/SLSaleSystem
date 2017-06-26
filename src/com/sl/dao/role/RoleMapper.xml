@@ -14,7 +14,7 @@
  	
  	<!-- listRole -->
  	<select id="listRole" resultMap="roleMap">
- 		SELECT id,roleName FROM sl_role
+ 		SELECT id,roleName FROM au_role
  	</select>
  	
  	<select id="listRoleIdAndName" resultMap="roleMap">

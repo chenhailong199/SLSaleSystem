@@ -1,4 +1,5 @@
 $("#loginBtn").click(function(){
+	alert("点击登录------------->");
 	var user = new Object();
 	user.loginCode = $.trim($("#logincode").val());
 	user.password = $.trim($("#password").val());
@@ -19,7 +20,7 @@ $("#loginBtn").click(function(){
 			url: '/login.html',
 			type: 'POST',
 			data:{user:JSON.stringify(user)},
-			dataType: 'html',
+			dataType: 'text',
 			timeout: 1000,
 			error: function(){
 				$("#formtip").css("color","red");
@@ -27,7 +28,7 @@ $("#loginBtn").click(function(){
 			},
 			success: function(result){
 				if(result != "" && "success" == result){
-					window.location.href='/main.html';
+					window.location.href='/SL/main.html';
 				}else if("failed" == result){
 					$("#formtip").css("color","red");
 					$("#formtip").html("登陆失败！请重试。");

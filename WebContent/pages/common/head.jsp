@@ -11,7 +11,7 @@
 	<meta name="author" content="Muhammad Usman">
 
 	<!-- The styles -->
-	<link href="/statics/bootstrap/css/bootstrap-cerulean.css" rel="stylesheet">
+	<link href="/SL/statics/bootstrap/css/bootstrap-cerulean.css" rel="stylesheet">
 	<style type="text/css">
 	  body {
 		padding-bottom: 40px;
@@ -28,35 +28,37 @@
 		color:black;
 	}
 	</style>
-	<link href="/statics/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
-	<link href="/statics/bootstrap/css/charisma-app.css" rel="stylesheet">
-	<link href="/statics/bootstrap/css/jquery-ui-1.8.21.custom.css" rel="stylesheet">
-	<link href='/statics/bootstrap/css/fullcalendar.css' rel='stylesheet'>
-	<link href='/statics/bootstrap/css/fullcalendar.print.css' rel='stylesheet'  media='print'>
-	<link href='/statics/bootstrap/css/chosen.css' rel='stylesheet'>
-	<link href='/statics/bootstrap/css/uniform.default.css' rel='stylesheet'>
-	<link href='/statics/bootstrap/css/colorbox.css' rel='stylesheet'>
-	<link href='/statics/bootstrap/css/jquery.cleditor.css' rel='stylesheet'>
-	<link href='/statics/bootstrap/css/jquery.noty.css' rel='stylesheet'>
-	<link href='/statics/bootstrap/css/noty_theme_default.css' rel='stylesheet'>
-	<link href='/statics/bootstrap/css/elfinder.min.css' rel='stylesheet'>
-	<link href='/statics/bootstrap/css/elfinder.theme.css' rel='stylesheet'>
-	<link href='/statics/bootstrap/css/jquery.iphone.toggle.css' rel='stylesheet'>
-	<link href='/statics/bootstrap/css/opa-icons.css' rel='stylesheet'>
-	<link href='/statics/bootstrap/css/uploadify.css' rel='stylesheet'>
+	<link href="/SL/statics/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+	<link href="/SL/statics/bootstrap/css/charisma-app.css" rel="stylesheet">
+	<link href="/SL/statics/bootstrap/css/jquery-ui-1.8.21.custom.css" rel="stylesheet">
+	<link href='/SL/statics/bootstrap/css/fullcalendar.css' rel='stylesheet'>
+	<link href='/SL/statics/bootstrap/css/fullcalendar.print.css' rel='stylesheet'  media='print'>
+	<link href='/SL/statics/bootstrap/css/chosen.css' rel='stylesheet'>
+	<link href='/SL/statics/bootstrap/css/uniform.default.css' rel='stylesheet'>
+	<link href='/SL/statics/bootstrap/css/colorbox.css' rel='stylesheet'>
+	<link href='/SL/statics/bootstrap/css/jquery.cleditor.css' rel='stylesheet'>
+	<link href='/SL/statics/bootstrap/css/jquery.noty.css' rel='stylesheet'>
+	<link href='/SL/statics/bootstrap/css/noty_theme_default.css' rel='stylesheet'>
+	<link href='/SL/statics/bootstrap/css/elfinder.min.css' rel='stylesheet'>
+	<link href='/SL/statics/bootstrap/css/elfinder.theme.css' rel='stylesheet'>
+	<link href='/SL/statics/bootstrap/css/jquery.iphone.toggle.css' rel='stylesheet'>
+	<link href='/SL/statics/bootstrap/css/opa-icons.css' rel='stylesheet'>
+	<link href='/SL/statics/bootstrap/css/uploadify.css' rel='stylesheet'>
 
-	<link href='/statics/local/css/userlist.css' rel='stylesheet'>
-	<link href='/statics/local/css/rolelist.css' rel='stylesheet'>
-	<link href='/statics/local/css/authoritymanage.css' rel='stylesheet'>
-	<link href='/statics/local/css/dicmanage.css' rel='stylesheet'>
-	<link href='/statics/local/css/affiche.css' rel='stylesheet'>
-	<link href='/statics/local/css/information.css' rel='stylesheet'>
-	<link href='/statics/local/css/addgoodspack.css' rel='stylesheet'>
-	<link href='/statics/local/css/mymessage.css' rel='stylesheet'>
-	<link href='/statics/local/css/messagelist.css' rel='stylesheet'>
+	<link href='/SL/statics/local/css/userlist.css' rel='stylesheet'>
+	<link href='/SL/statics/local/css/rolelist.css' rel='stylesheet'>
+	<link href='/SL/statics/local/css/authoritymanage.css' rel='stylesheet'>
+	<link href='/SL/statics/local/css/dicmanage.css' rel='stylesheet'>
+	<link href='/SL/statics/local/css/affiche.css' rel='stylesheet'>
+	<link href='/SL/statics/local/css/information.css' rel='stylesheet'>
+	<link href='/SL/statics/local/css/addgoodspack.css' rel='stylesheet'>
+	<link href='/SL/statics/local/css/mymessage.css' rel='stylesheet'>
+	<link href='/SL/statics/local/css/messagelist.css' rel='stylesheet'>
 	
 	<link rel="shortcut icon" href="/statics/img/favicon.ico">
-	<script>var tt = '${mList}';</script>
+<!-- 	<script type="text/javascript">
+		var tt = '${mList}';
+	</script> -->
 </head>
 <body>
 		<!-- topbar starts -->
