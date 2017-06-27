@@ -37,4 +37,16 @@ public class FunctionServiceImpl implements FunctionService {
 		return functionMapper.listSubFunctionForAuthority(function);
 	}
 
+	@Override
+	public List<Function> listFunctionByIdIn(String fid) throws Exception {
+		// TODO Auto-generated method stub
+		return functionMapper.listFunctionByIdIn(fid);
+	}
+
+	@Override
+	public List<Function> listFunctionByRoleId(Authority authority) throws Exception {
+		// TODO Auto-generated method stub
+		return functionMapper.listFunctionByRoleId(authority);
+	}
+
 }

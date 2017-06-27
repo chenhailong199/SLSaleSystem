@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.sl.dao.authority.AuthorityMapper">
+    <resultMap type="Authority" id="authorityMap">
+ 		<id property="id" column="id" javaType="java.lang.Integer"/>
+ 		<result property="roleId" column="functionCode" javaType="java.lang.Integer"/>
+ 		<result property="functionId" column="functionCode" javaType="java.lang.Integer"/>
+ 		<result property="userTypeId" column="functionCode" javaType="java.lang.Integer"/>
+ 		<result property="creationTime" column="functionCode" javaType="java.util.Date"/>
+ 		<result property="createdBy" column="functionCode" javaType="java.lang.String"/>     
+ 	</resultMap>
+ 	
+ 	<select id="listAuthority" resultMap="authorityMap" parameterType="authority">
+		select id,roleId,functionId,userTypeId,creationTime,createdBy from au_authority where roleId = #{roleId}
+	</select>
+	
+	<select id="getAuthorityById" resultMap="authorityMap" parameterType="authority">
+		select id,roleId,functionId,userTypeId,creationTime,createdBy from au_authority where roleId = #{roleId} and functionId = #{functionId}
+	</select>
+ 	
+ 	<insert id="saveAuthority" parameterType="authority">
+		insert into au_authority (roleId,functionId,userTypeId,creationTime,createdBy) 
+		    values(#{roleId}, #{functionId}, #{userTypeId}, #{creationTime}, #{createdBy})
+	</insert>
+ 	
+ 	<update id="updateAuthority" parameterType="authority">
+		update au_authority 
+		<set>
+			<if test="roleId != null">roleId = #{roleId},</if>
+			<if test="functionId != null">functionId = #{functionId},</if>
+			<if test="creationTime != null">creationTime = #{creationTime},</if>
+			<if test="createdBy != null">createdBy = #{createdBy},</if>
+			<if test="userTypeId != null">userTypeId = #{userTypeId}</if>
+		</set>
+		    where id = #{id}
+	</update>
+ 	
+ 	<delete id="removeAuthority" parameterType="authority">
+		delete from au_authority
+		<trim prefix="where" prefixOverrides="and | or">
+			<if test=" id != null">and id = #{id}</if>
+			<if test = "roleId != null ">and roleId = #{roleId}</if>
+		</trim>
+	</delete>
+ </mapper>

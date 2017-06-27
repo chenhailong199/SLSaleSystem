@@ -2,6 +2,8 @@ package com.sl.dao.function;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.sl.pojo.Authority;
 import com.sl.pojo.Function;
 
@@ -38,4 +40,21 @@ public interface FunctionMapper {
 	 * @throws Exception
 	 */
 	List<Function> listSubFunctionForAuthority(Function function) throws Exception;
+	
+	/**
+	 * listFunctionByFidIn
+	 * @param fid
+	 * @return
+	 * @throws Exception
+	 */
+	List<Function> listFunctionByIdIn(@Param(value="fid") String fid) throws Exception;
+	
+	/**
+	 * listFunctionByRoleId
+	 * @param authority
+	 * @return
+	 * @throws Exception
+	 */
+	List<Function> listFunctionByRoleId(Authority authority) throws Exception;
+	
 }

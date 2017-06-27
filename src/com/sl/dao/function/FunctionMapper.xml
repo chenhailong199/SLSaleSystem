@@ -24,11 +24,28 @@
  	</select>
  	
  	<select id="listFunctionByRoId" resultMap="functionMap" parameterType="function">
- 		select id,functionCode,functionName,funcUrl,parentId,creationTime from au_function where id in(select functionid from au_authority where roleId = ${roleId}) and parentId > 0
+ 		select id,functionCode,functionName,funcUrl,parentId,creationTime 
+ 		    from au_function where id in(select functionid from au_authority 
+ 		        where roleId = ${roleId}) and parentId > 0
  	</select>
  	
  	<select id="listSubFunctionForAuthority" resultMap="functionMap" parameterType="function">
- 	    select id,functionCode,functionName,funcUrl,parentId,creationTime from au_function where id in(select functionid from au_authority where parentId = #{id}
+ 	    select id,functionCode,functionName,funcUrl,parentId,creationTime 
+ 	        from au_function where parentId = #{id}
+ 	</select>
+ 	
+ 	<select id="listFunctionByIdIn" resultMap="functionMap" parameterType="string">
+ 	    select id,functionCode,functionName,funcUrl,parentId,creationTime 
+ 	        from au_function where id in (${fid})
+ 	        or parentId in (select id from au_function where id in  (${fid}) and parentId > 0)
+ 	        or parentId = 999
+ 	</select>
+ 	
+ 	<select id="listFunctionByRoleId" resultMap="functionMap" parameterType="authority">
+ 	    select id,functionCode,functionName,funcUrl,parentId,creationTime 
+ 	        from au_function where id in 
+ 	           (select functionId from au_authority where roleId = ${roleId})
+ 	           and parentId > 0
  	</select>
  	
 </mapper> 	
