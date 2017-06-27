@@ -20,7 +20,6 @@ import com.alibaba.fastjson.JSON;
 import com.sl.common.SLConstants;
 import com.sl.pojo.Authority;
 import com.sl.pojo.Function;
-import com.sl.pojo.Menu;
 import com.sl.pojo.Role;
 import com.sl.pojo.RoleFunctions;
 import com.sl.pojo.User;
@@ -28,7 +27,6 @@ import com.sl.service.authority.AuthorityService;
 import com.sl.service.function.FunctionService;
 import com.sl.service.role.RoleService;
 
-import net.sf.json.JSONArray;
 
 @Controller
 public class AuthorityController extends BaseController {
@@ -53,6 +51,7 @@ public class AuthorityController extends BaseController {
 	 */
 	@RequestMapping("/backend/authoritymanage.html")
 	public ModelAndView authorityManage(HttpSession session, Model model){
+		@SuppressWarnings("unchecked")
 		Map<String,Object> baseModel= (Map<String,Object>)session.getAttribute(SLConstants.SESSION_BASE_MODEL);	
 		if(baseModel == null){
 			return new ModelAndView("redirect:/");

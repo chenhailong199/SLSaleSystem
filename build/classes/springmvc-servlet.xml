@@ -35,7 +35,14 @@
 			<property name="defaultEncoding" value="UTF-8"/>
 	   </bean>
 	   
-	   <!-- 配置interce... -->
+	   <!-- 配置interceptor -->
+	   <mvc:interceptors>
+	       <mvc:interceptor>
+	          <mvc:mapping path="/backend/**"/>
+	          <mvc:mapping path="/member/**"/>
+	          <bean class="com.sl.interceptor.SysInterceptor"></bean>
+	       </mvc:interceptor>
+	   </mvc:interceptors>
        
        <!-- 配置全局异常  SimpleMappingExceptionResolver -->
        <!--   <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
