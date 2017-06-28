@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sl.dao.goodspack.GoodsPackMapper">
+    <resultMap type="GoodsPack" id="goodsPackMap">
+        <id property="id" column="id" javaType="java.lang.Integer"/>
+        <result property="goodsPackName" column="goodsPackName"  javaType="java.lang.String"/>
+        <result property="goodsPackCode" column="goodsPackCode"  javaType="java.lang.String"/>
+        <result property="typeId" column="typeId"  javaType="java.lang.Integer"/>
+        <result property="typeName" column="typeName"  javaType="java.lang.String"/>
+        <result property="totalPrice" column="totalPrice"  javaType="java.lang.Double"/>
+        <result property="state" column="state"  javaType="java.lang.Integer"/>
+        <result property="note" column="note"  javaType="java.lang.String"/>
+        <result property="num" column="num"  javaType="java.lang.Integer"/>
+        <result property="createdBy" column="createdBy"  javaType="java.lang.String"/>
+        <result property="createTime" column="createTime"  javaType="java.util.Date"/>
+        <result property="lastUpdateTime" column="lastUpdateTime"  javaType="java.util.Date"/>
+    </resultMap>
+    <select id="listGoodsPack" parameterType="goodsPack" resultMap="goodsPackMap">
+        SELECT id,goodsPackName,goodsPackCode,typeId,typeName,totalPrice,state,note,num,createdBy,createTime,lastUpdateTime 
+            FROM goods_pack
+    </select>
+    
+    <select id="listGoodsPackByPage" parameterType="goodsPack" resultMap="goodsPackMap">
+        SELECT id,goodsPackName,goodsPackCode,typeId,typeName,totalPrice,state,note,num,createdBy,createTime,lastUpdateTime 
+            FROM goods_pack 
+            <trim prefix="where" prefixOverrides="and | or">
+			     <if test="goodsPackName != null"> 
+			        and goodsPackName like #{goodsPackName} 
+			    </if>
+			    <if test="state != null">
+			        and state = #{state}
+			    </if>
+			    <if test="typeId != null">
+			      and typeId = #{typeId}
+			    </if>
+		</trim>
+		    order by lastUpdateTime desc limit #{pageNo},#{pageSize}
+    </select>
+    
+    <select id="totalCount" parameterType="goodsPack" resultType="int">
+    	select count(1) from goods_pack
+		<trim prefix="where" prefixOverrides="and | or">
+			<if test="goodsPackName != null">
+			    and goodsPackName like  CONCAT('%',#{goodsPackName},'%')
+			</if>
+			<if test="state != null">
+			    and state = #{state}
+			</if>
+			<if test="typeId != null">
+			    and typeId = #{typeId}
+			</if>
+		</trim>
+	</select>
+		
+    <select id="goodsPackCodeIsExit" parameterType="goodsPack" resultType="int">
+        select count(1) from goods_pack
+			<trim prefix="where" prefixOverrides="and | or">
+				<if test="goodsPackCode != null">
+				  and goodsPackCode = #{goodsPackCode}
+				</if>
+				<if test="id != null">
+				  and id != #{id}
+				</if>
+			</trim>
+    </select>
+    
+    <select id="getGoodsPackById" parameterType="goodsPack" resultMap="goodsPackMap">
+        SELECT id,goodsPackName,goodsPackCode,typeId,typeName,totalPrice,state,note,num,createdBy,createTime,lastUpdateTime 
+            FROM goods_pack where id = #{id}
+    </select>
+    
+    <select id="getAddGoodsPackId" resultType="int">
+        select LAST_INSERT_ID()
+    </select>
+    
+    <insert id="saveGoodsPack" parameterType="goodsPack">
+        insert into goods_pack (goodsPackCode,goodsPackName,typeId,typeName,totalPrice,state,
+								num,note,createdBy,createTime,lastUpdateTime) 
+						values 
+							 (#{goodsPackCode},#{goodsPackName},#{typeId},#{typeName},#{totalPrice},#{state},
+							 #{num},#{note},#{createdBy},#{createTime},#{lastUpdateTime})
+    </insert>
+    
+    <update id="updateGoodsPack" parameterType="goodsPack">
+        update goods_pack 
+			<set>
+				 <if test="goodsPackCode != null"> goodsPackCode = #{goodsPackCode},</if>
+				 <if test="goodsPackName != null"> goodsPackName = #{goodsPackName},</if>
+				 <if test="typeId != null"> typeId = #{typeId},</if>
+				 <if test="typeName != null"> typeName = #{typeName},</if>
+				 <if test="totalPrice != null"> totalPrice = #{totalPrice},</if>
+				 <if test="num != null"> num = #{num},</if>
+				 <if test="note != null"> note = #{note},</if>
+				 <if test="state != null"> state = #{state},</if>
+				 <if test="createdBy != null"> createdBy = #{createdBy},</if>
+				 <if test="createTime != null"> createTime = #{createTime},</if>
+				 <if test="lastUpdateTime != null"> lastUpdateTime = #{lastUpdateTime}</if>
+		     </set>
+		  	where id = #{id}
+    </update>
+    
+    <delete id="removeGoodsPack" parameterType="goodsPack">
+        delete from goods_pack where id = #{id}
+    </delete>
+</mapper>
