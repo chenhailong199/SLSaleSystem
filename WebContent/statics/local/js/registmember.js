@@ -14,12 +14,12 @@ $(".agreerule").click(function(){
 });
 
 $(".rule").click(function(){
-	window.open("/member/registrule.html");
+	window.open("/SL/member/registrule.html");
 });
 
 
 $(".backbtn").click(function(){
-	window.location.href="/member/registrule.html";
+	window.location.href="/SL/member/registrule.html";
 });
 
 $("#a_cardType").change(function(){
@@ -37,7 +37,7 @@ $("#a_uploadbtnBank").click(function(){
 $("#a_loginCode").blur(function(){
 	var alc = $.trim($("#a_loginCode").val());
 	if(alc != ""){
-		$.post("/backend/logincodeisexit.html",{'loginCode':alc,'id':'-1'},function(result){
+		$.post("/SL/backend/logincodeisexit.html",{'loginCode':alc,'id':'-1'},function(result){
 			if(result == "repeat"){
 				$("#add_formtip").css("color","red");
 				$("#add_formtip").html("<li>对不起，该用户名已存在。</li>");
@@ -68,7 +68,7 @@ $("#a_email").blur(function(){
 
 function delpic(id,closeSpan,uploadBtn,obj,picpath,picText,fileinputid){
 	//delete
-	$.post("/backend/delpic.html",{'id':id,'picpath':picpath},function(result){
+	$.post("/SL/backend/delpic.html",{'id':id,'picpath':picpath},function(result){
 		if("success" == result){
 			alert("删除成功！");
 			$('#'+picText).val('');
@@ -87,7 +87,7 @@ function TajaxFileUpload(flag,t1,t2,t3,t4)
 	}else{
 		$.ajaxFileUpload
 	    ({ 
-	           url:'/backend/upload.html', //处理上传文件的服务端
+	           url:'/SL/backend/upload.html', //处理上传文件的服务端
 	           secureuri:false,
 	           fileElementId:t1,
 	           dataType: 'json',

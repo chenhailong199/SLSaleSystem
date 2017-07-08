@@ -48,8 +48,6 @@
  	           and parentId > 0
  	</select>
  	
- 	<!-- <select id="listSubFunctionForAuthority" resultMap="functionMap" parameterType="function">
- 	    select id,functionCode,functionName,funcUrl,parentId,creationTime from au_function where id in(select functionid from au_authority where parentId = #{id}
- 	</select> -->
+ 	
  	
 </mapper> 	
